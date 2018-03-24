@@ -1,0 +1,2 @@
+3/24/2018
+Initial release. Designed the log-in screen. Created the employee screen and added a ListView to it. Includes a test pop-up menu.
