@@ -14,8 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        final Intent inten = new Intent(this, Test4_2.class);
+        final Intent intent = new Intent(this, Test4_2.class);
 
         Button loginButton = (Button)findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -26,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 EditText password = (EditText) findViewById(R.id.passwordET);
                 EditText companyCode = (EditText) findViewById(R.id.passwordET);
 
-                startActivity(inten);
-
+                startActivity(intent);
             }
         });
     }

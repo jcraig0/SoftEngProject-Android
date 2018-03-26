@@ -16,16 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
-        <activity android:name=".Test4_2" >
-
-
-
-
-
-
+        <activity android:name=".Test4_2"
+            android:theme="@style/DarkTheme">
         </activity>
     </application>
 

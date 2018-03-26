@@ -1,7 +1,6 @@
 package com.example.thorm.test4;
 
 import android.content.Intent;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -20,7 +19,7 @@ public class Test4_2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test4_2);
-        getApplication().setTheme(R.style.DarkTheme);
+        setTitle("Employee List");
 
         String[] myArray = "Aaron,Justin,Tim,Timothy,Patrick,Jovon".split(",");
         final ListView employeeList = (ListView) findViewById(R.id.employeeLV);
@@ -45,9 +44,6 @@ public class Test4_2 extends AppCompatActivity {
         final Spinner spin = (Spinner) findViewById(R.id.sortingSpinner);
         spin.setAdapter(test1);
         spin.setDropDownVerticalOffset(100);
-
-
-
 
         final Button b = (Button) findViewById(R.id.testButtonB);
 
@@ -76,8 +72,6 @@ public class Test4_2 extends AppCompatActivity {
                         return false;
                     }
                 });
-
-
             }
         });
 

@@ -8,5 +8,4 @@
     android:textColor="@android:color/black"
     android:textSize="24sp"
     android:typeface="normal">
-
 </TextView>
