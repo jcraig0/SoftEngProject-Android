@@ -17,13 +17,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.932" />
 
-    <Spinner
-        android:id="@+id/sortingSpinner"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="24dp"
-        android:spinnerMode="dialog"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </android.support.constraint.ConstraintLayout>
