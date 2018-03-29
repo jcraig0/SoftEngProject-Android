@@ -3,3 +3,6 @@ Initial release. Designed the log-in screen. Created the employee screen and add
 
 3/26/2018
 Added an action bar with a title to the employee screen. Fixed dimensions of list view.
+
+3/29/2018
+Included ID numbers in the ListView. Added an order selection and menu button to the app bar.
