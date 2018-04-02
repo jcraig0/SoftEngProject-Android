@@ -6,3 +6,6 @@ Added an action bar with a title to the employee screen. Fixed dimensions of lis
 
 3/29/2018
 Included ID numbers in the ListView. Added an order selection and menu button to the app bar.
+
+4/2/2018
+Created the pay screen activity and designed the layout for a Shift inside it.
