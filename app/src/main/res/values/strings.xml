@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Test4</string>
+    <string name="title_activity_pay">PayActivity</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="payrates">
+        <item>per hour</item>
+        <item>per day</item>
+    </string-array>
+
+    <string-array name="shifttypes">
+        <item>Start/End Time</item>
+        <item>Duration</item>
+        <item>Commission</item>
+    </string-array>
 </resources>
