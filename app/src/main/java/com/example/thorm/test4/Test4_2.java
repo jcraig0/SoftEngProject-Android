@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import java.util.ArrayList;
@@ -34,12 +36,13 @@ public class Test4_2 extends AppCompatActivity {
         final ListView employeeList = (ListView) findViewById(R.id.employeeLV);
         employeeList.setAdapter(adapter);
 
-        /*
-        String[] myArray = "Aaron,Justin,Tim,Timothy,Patrick,Jovon".split(",");
-        final ListView employeeList = (ListView) findViewById(R.id.employeeLV);
-        final ArrayAdapter employeeAdaptor = new ArrayAdapter(this, R.layout.linear_layout, myArray);
-        employeeList.setAdapter(employeeAdaptor);
-        */
+        employeeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent toPayActivity = new Intent(Test4_2.this, PayActivity.class);
+                startActivity(toPayActivity);
+            }
+        });
     }
 
     @Override
