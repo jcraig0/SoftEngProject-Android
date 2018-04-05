@@ -9,3 +9,6 @@ Included ID numbers in the ListView. Added an order selection and menu button to
 
 4/2/2018
 Created the pay screen activity and designed the layout for a Shift inside it.
+
+4/5/2018
+Added Job spinner and made functionality for Add Shift button.
