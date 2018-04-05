@@ -6,6 +6,9 @@
     <string-array name="payrates">
         <item>per hour</item>
         <item>per day</item>
+        <item>per week</item>
+        <item>per month</item>
+        <item>total</item>
     </string-array>
 
     <string-array name="shifttypes">

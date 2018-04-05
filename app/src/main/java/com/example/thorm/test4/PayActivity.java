@@ -8,13 +8,66 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.PopupMenu;
+import java.util.ArrayList;
 
 public class PayActivity extends AppCompatActivity {
+
+    ListView shiftsLV;
+    ArrayList<String> jobsList = new ArrayList<String>();
+    ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<ShiftArrayAdapter>();
+
+    int activeJob = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pay);
+        setContentView(R.layout.activity_job);
+
+        final Employee currentEmployee = Employee.selectedEmployee;
+        for (String s: currentEmployee.jobs){
+            jobsList.add(s);
+            jobsAdapterList.add(new ShiftArrayAdapter(this));
+        }
+
+        final Spinner s = findViewById(R.id.jobSelectionBT);
+
+        ArrayList<String> sList = new ArrayList<>();
+        for (String job : currentEmployee.jobs) {
+            sList.add(job);
+        }
+        ArrayAdapter<String> sAdapter = new ArrayAdapter<>(this, R.layout.text_view, sList);
+        s.setAdapter(sAdapter);
+
+        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                int pos = jobsList.indexOf(s.getSelectedItem().toString());
+                shiftsLV.setAdapter(jobsAdapterList.get(pos));
+                activeJob = pos;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                s.setSelection(0);
+            }
+        });
+
+        shiftsLV = findViewById(R.id.shiftsLV);
+        shiftsLV.setAdapter(jobsAdapterList.get(activeJob));
+
+        Button addShift = findViewById(R.id.addShiftBT);
+        addShift.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jobsAdapterList.get(activeJob).add(new EmployeeShift());
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -24,6 +77,7 @@ public class PayActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
     }
 
     @Override

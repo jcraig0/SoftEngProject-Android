@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,12 +24,13 @@ public class Test4_2 extends AppCompatActivity {
         setContentView(R.layout.activity_test4_2);
         setTitle("Employee List");
 
-        String[][] myArray = {{"Aaron", "ID: 1"}, {"Justin", "ID: 2"}, {"Tim", "ID: 3"}, {"Timothy", "ID: 4"}, {"Aaron", "ID: 5"}, {"Jovon", "ID: 6"}};
+        final Employer currentEmployer = Employer.TestEmployer;
+
         ArrayList<HashMap<String,String>> hash = new ArrayList<>();
-        for (String[] entry : myArray) {
+        for (Employee e : currentEmployer.employees) {
             HashMap<String,String> item = new HashMap<>();
-            item.put("line1", entry[0]);
-            item.put("line2", entry[1]);
+            item.put("line1", e.NAME);
+            item.put("line2", "ID: "+e.ID);
             hash.add(item);
         }
 
@@ -38,7 +41,9 @@ public class Test4_2 extends AppCompatActivity {
 
         employeeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Employee.selectedEmployee = currentEmployer.employees.get(position);
+
                 Intent toPayActivity = new Intent(Test4_2.this, PayActivity.class);
                 startActivity(toPayActivity);
             }

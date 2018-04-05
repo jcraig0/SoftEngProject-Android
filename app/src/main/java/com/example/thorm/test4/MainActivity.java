@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Employer.createEmployerList();
+
         final Intent intent = new Intent(this, Test4_2.class);
 
         Button loginButton = (Button)findViewById(R.id.loginButton);
