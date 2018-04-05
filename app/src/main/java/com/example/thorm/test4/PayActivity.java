@@ -30,6 +30,8 @@ public class PayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_job);
 
         final Employee currentEmployee = Employee.selectedEmployee;
+        setTitle(currentEmployee.NAME);
+
         for (String s: currentEmployee.jobs){
             jobsList.add(s);
             jobsAdapterList.add(new ShiftArrayAdapter(this));
