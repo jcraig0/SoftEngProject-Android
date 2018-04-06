@@ -14,4 +14,4 @@ Created the pay screen activity and designed the layout for a Shift inside it.
 Added Job spinner and made functionality for Add Shift button.
 
 4/6/2018
-Layout adjustments for the Pay activity. Fixed Job spinner alignment, and placement and padding of the shift list. Lengthened Start Time and End Time boxes. Added Up button to action bar.
+Layout adjustments for the Pay activity. Fixed Job spinner alignment, and placement and padding of the shift list. Lengthened Start Time and End Time boxes. Increased text size of Add Shift button. Added Up button to action bar.
