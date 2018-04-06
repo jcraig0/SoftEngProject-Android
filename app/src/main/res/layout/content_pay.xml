@@ -9,6 +9,7 @@
     tools:showIn="@layout/activity_pay">
 
     <LinearLayout
+        android:id="@+id/shiftLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -67,60 +68,60 @@
 
         </LinearLayout>
 
-        <RadioGroup
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/mButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="M" />
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/tButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="T" />
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/wButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="W" />
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/thButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Th" />
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/fButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="F" />
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/sButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="S" />
 
-            <RadioButton
+            <CheckBox
                 android:id="@+id/suButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Su" />
-        </RadioGroup>
+        </LinearLayout>
 
         <EditText
             android:id="@+id/chooseDate"
