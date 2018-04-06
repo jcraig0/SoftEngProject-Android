@@ -22,7 +22,7 @@
         <activity
             android:name=".PayActivity"
             android:label="@string/title_activity_pay"
-            android:theme="@style/DarkTheme"></activity>
+            android:theme="@style/DarkTheme" />
     </application>
 
 </manifest>

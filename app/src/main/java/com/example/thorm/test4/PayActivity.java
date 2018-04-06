@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.PopupMenu;
 import java.util.ArrayList;
 
 public class PayActivity extends AppCompatActivity {
@@ -28,6 +28,7 @@ public class PayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Employee currentEmployee = Employee.selectedEmployee;
         setTitle(currentEmployee.NAME);
@@ -97,6 +98,10 @@ public class PayActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent toEmployees = new Intent(this, Test4_2.class);
+                startActivity(toEmployees);
+                return true;
             case R.id.signout:
                 Intent toMainActivity = new Intent(this, MainActivity.class);
                 startActivity(toMainActivity);
