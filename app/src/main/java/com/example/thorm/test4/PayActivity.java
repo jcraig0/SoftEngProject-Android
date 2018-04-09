@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class PayActivity extends AppCompatActivity {
 
     ListView shiftsLV;
-    ArrayList<String> jobsList = new ArrayList<>();
+    ArrayList<String> jobs = new ArrayList<>();
     ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<>();
 
     int activeJob = 0;
@@ -33,19 +33,19 @@ public class PayActivity extends AppCompatActivity {
         final Employee currentEmployee = Employee.selectedEmployee;
         setTitle(currentEmployee.NAME);
 
-        for (String s: currentEmployee.jobs) {
-            jobsList.add(s);
+        jobs = currentEmployee.jobs;
+        jobsAdapterList = currentEmployee.jobsAdapterList;
+        for (int i = 0; i < jobs.size(); i++)
             jobsAdapterList.add(new ShiftArrayAdapter(this));
-        }
 
         final Spinner s = findViewById(R.id.jobSelectionBT);
-        ArrayAdapter<String> sAdapter = new ArrayAdapter<>(this, R.layout.text_view, jobsList);
+        ArrayAdapter<String> sAdapter = new ArrayAdapter<>(this, R.layout.text_view, jobs);
         s.setAdapter(sAdapter);
 
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                int pos = jobsList.indexOf(s.getSelectedItem().toString());
+                int pos = jobs.indexOf(s.getSelectedItem().toString());
                 shiftsLV.setAdapter(jobsAdapterList.get(pos));
                 activeJob = pos;
             }

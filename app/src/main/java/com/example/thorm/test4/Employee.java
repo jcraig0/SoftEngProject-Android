@@ -10,7 +10,7 @@ public class Employee {
     String NAME;
     String ID;
     ArrayList<String> jobs = new ArrayList<>();
-    ArrayList<EmployeeShift> shifts = new ArrayList<>();
+    ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<>();
 
     public Employee(String name, String id){
         this.NAME = name;
