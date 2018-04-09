@@ -18,3 +18,6 @@ Layout adjustments for the Pay activity. Fixed Job spinner alignment, and placem
 
 4/6/2018 4:26 PM
 Made shift layouts alternate background color in the list. Replaced radio buttons with checkboxes. Added more employee shift variables.
+
+4/9/2018 1:46 PM
+Stopped automatic activity resizing when keyboard is displayed. Set dialog text for Save button. Set next focus of startTime to endTime.
