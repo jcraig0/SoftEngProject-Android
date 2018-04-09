@@ -14,8 +14,7 @@ import java.util.ArrayList;
 
 
 public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
-    ArrayList<EmployeeShift> shifts = new ArrayList<EmployeeShift>();
-
+    ArrayList<EmployeeShift> shifts = new ArrayList<>();
 
     public ShiftArrayAdapter(Context context){
         super(context, 0);
@@ -45,6 +44,9 @@ public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
 
         TextView shiftNumber = convertView.findViewById(R.id.shiftNum);
         shiftNumber.setText("Shift ".concat(String.valueOf(position+1)));
+
+        TextView payRate = convertView.findViewById(R.id.payRate);
+        payRate.setText(shifts.get(position).getPayRate());
 
         LinearLayout layout = convertView.findViewById(R.id.shiftLayout);
         if (position % 2 == 1)

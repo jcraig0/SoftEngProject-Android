@@ -9,8 +9,8 @@ public class Employee {
 
     String NAME;
     String ID;
-    ArrayList<String> jobs = new ArrayList<String>();
-    ArrayList<EmployeeShift> shifts = new ArrayList<EmployeeShift>();
+    ArrayList<String> jobs = new ArrayList<>();
+    ArrayList<EmployeeShift> shifts = new ArrayList<>();
 
     public Employee(String name, String id){
         this.NAME = name;

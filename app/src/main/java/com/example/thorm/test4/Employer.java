@@ -8,7 +8,7 @@ public class Employer {
 
     String NAME;
     String ID;
-    ArrayList<Employee> employees = new ArrayList<Employee>();
+    ArrayList<Employee> employees = new ArrayList<>();
 
     public Employer(String name){
         this.NAME = name;

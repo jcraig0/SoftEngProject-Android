@@ -19,8 +19,8 @@ import java.util.ArrayList;
 public class PayActivity extends AppCompatActivity {
 
     ListView shiftsLV;
-    ArrayList<String> jobsList = new ArrayList<String>();
-    ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<ShiftArrayAdapter>();
+    ArrayList<String> jobsList = new ArrayList<>();
+    ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<>();
 
     int activeJob = 0;
 
@@ -33,18 +33,13 @@ public class PayActivity extends AppCompatActivity {
         final Employee currentEmployee = Employee.selectedEmployee;
         setTitle(currentEmployee.NAME);
 
-        for (String s: currentEmployee.jobs){
+        for (String s: currentEmployee.jobs) {
             jobsList.add(s);
             jobsAdapterList.add(new ShiftArrayAdapter(this));
         }
 
         final Spinner s = findViewById(R.id.jobSelectionBT);
-
-        ArrayList<String> sList = new ArrayList<>();
-        for (String job : currentEmployee.jobs) {
-            sList.add(job);
-        }
-        ArrayAdapter<String> sAdapter = new ArrayAdapter<>(this, R.layout.text_view, sList);
+        ArrayAdapter<String> sAdapter = new ArrayAdapter<>(this, R.layout.text_view, jobsList);
         s.setAdapter(sAdapter);
 
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -72,10 +67,12 @@ public class PayActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // How to access a text view in the list
+                EditText e = shiftsLV.getChildAt(0).findViewById(R.id.payAmount);
 
                 Snackbar.make(view, "Changes saved to "+currentEmployee.NAME, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();

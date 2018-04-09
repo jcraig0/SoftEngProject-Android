@@ -11,12 +11,14 @@ public class EmployeeShift {
     private String duration;
     private String commission;
 
-    public EmployeeShift(){
-
+    public EmployeeShift() {
+        payRate = "total";
     }
 
     public double getPayAmount() { return payAmount; }
     public void setPayAmount(double d) { payAmount = d; }
+
+    public String getPayRate() { return payRate; }
 
     public String getDate() { return date; }
     public void setDate(String s) { date = s; }
