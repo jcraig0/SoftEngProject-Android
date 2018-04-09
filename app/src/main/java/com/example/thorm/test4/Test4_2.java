@@ -14,9 +14,13 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class Test4_2 extends AppCompatActivity {
+
+    final Employer currentEmployer = Employer.TestEmployer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,21 +28,9 @@ public class Test4_2 extends AppCompatActivity {
         setContentView(R.layout.activity_test4_2);
         setTitle("Employee List");
 
-        final Employer currentEmployer = Employer.TestEmployer;
+        makeAdapter(currentEmployer.employees);
 
-        ArrayList<HashMap<String,String>> hash = new ArrayList<>();
-        for (Employee e : currentEmployer.employees) {
-            HashMap<String,String> item = new HashMap<>();
-            item.put("line1", e.NAME);
-            item.put("line2", "ID: "+e.ID);
-            hash.add(item);
-        }
-
-        SimpleAdapter adapter = new SimpleAdapter(this, hash, R.layout.linear_layout, new String[]{"line1","line2"}, new int[]{R.id.textView1, R.id.textView2});
-
-        final ListView employeeList = (ListView) findViewById(R.id.employeeLV);
-        employeeList.setAdapter(adapter);
-
+        final ListView employeeList = findViewById(R.id.employeeLV);
         employeeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -48,6 +40,20 @@ public class Test4_2 extends AppCompatActivity {
                 startActivity(toPayActivity);
             }
         });
+    }
+
+    public void makeAdapter(ArrayList<Employee> employees) {
+        ArrayList<HashMap<String,String>> hash = new ArrayList<>();
+        for (Employee e : employees) {
+            HashMap<String,String> item = new HashMap<>();
+            item.put("line1", e.NAME);
+            item.put("line2", "ID: "+e.ID);
+            hash.add(item);
+        }
+
+        SimpleAdapter adapter = new SimpleAdapter(this, hash, R.layout.linear_layout, new String[]{"line1","line2"}, new int[]{R.id.textView1, R.id.textView2});
+        ListView employeeList = findViewById(R.id.employeeLV);
+        employeeList.setAdapter(adapter);
     }
 
     @Override
@@ -66,7 +72,30 @@ public class Test4_2 extends AppCompatActivity {
                        .setItems(orders, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        switch (i) {
+                            case 0:
+                                ArrayList<Employee> newList = new ArrayList<>(currentEmployer.employees);
+                                Collections.sort(newList, new Comparator<Employee>() {
+                                    @Override
+                                    public int compare(Employee e1, Employee e2) {
+                                        return e1.NAME.compareTo(e2.NAME);
+                                    }
+                                });
+                                makeAdapter(newList);
+                                break;
+                            case 1:
+                                newList = new ArrayList<>(currentEmployer.employees);
+                                Collections.sort(newList, new Comparator<Employee>() {
+                                    @Override
+                                    public int compare(Employee e1, Employee e2) {
+                                        return e2.NAME.compareTo(e1.NAME);
+                                    }
+                                });
+                                makeAdapter(newList);
+                                break;
+                            case 2:
+                                break;
+                        }
                     }
                 });
                 builder.create().show();
