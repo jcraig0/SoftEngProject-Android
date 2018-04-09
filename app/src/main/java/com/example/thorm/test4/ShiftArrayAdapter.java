@@ -40,22 +40,17 @@ public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
 
-        if (convertView == null){
+        if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.content_pay, parent, false);
-        }
 
         TextView shiftNumber = convertView.findViewById(R.id.shiftNum);
         shiftNumber.setText("Shift ".concat(String.valueOf(position+1)));
-        LinearLayout layout = convertView.findViewById(R.id.shiftLayout);
 
+        LinearLayout layout = convertView.findViewById(R.id.shiftLayout);
         if (position % 2 == 1)
             layout.setBackgroundColor(Color.rgb(240,240,255));
         else
             layout.setBackgroundColor(0);
-
-        //Input for this method
-        //EditText shiftStart = convertView.findViewById(R.id.shiftStartET);
-        //EditText shiftEnd = convertView.findViewById(R.id.shiftStartET);
 
         return convertView;
     }

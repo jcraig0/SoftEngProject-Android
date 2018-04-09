@@ -6,6 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +33,25 @@ public class MainActivity extends AppCompatActivity {
                 EditText userName = (EditText) findViewById(R.id.usernameET);
                 EditText password = (EditText) findViewById(R.id.passwordET);
                 EditText companyCode = (EditText) findViewById(R.id.passwordET);
+
+                /*
+                RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                    (Request.Method.POST, "localhost/server/public/authenticate", null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        userName.setText(response.toString());
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        userName.setText(error.toString());
+                    }
+                });
+
+                queue.add(jsonObjectRequest);
+                */
 
                 startActivity(intent);
             }

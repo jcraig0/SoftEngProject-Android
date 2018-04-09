@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.thorm.test4">
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -21,8 +22,8 @@
             android:theme="@style/DarkTheme" />
         <activity
             android:name=".PayActivity"
-            android:label="@string/title_activity_pay"
-            android:theme="@style/DarkTheme" />
+            android:theme="@style/DarkTheme"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>
