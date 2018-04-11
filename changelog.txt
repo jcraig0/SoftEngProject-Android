@@ -24,3 +24,6 @@ Stopped automatic activity resizing when keyboard is displayed. Set dialog text 
 
 4/9/2018 3:29 PM
 Made pay activity retain shift view by having each Employee contain a jobsAdapterList. Shifted shiftType slightly to the left.
+
+4/9/2018 4:02 PM
+Implemented alphabetical and reverse alphabetical sorting in the Employee screen.
