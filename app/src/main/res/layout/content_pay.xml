@@ -19,7 +19,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="90dp"
             android:orientation="horizontal">
 
             <TextView
@@ -33,13 +32,112 @@
                 android:textColor="@android:color/black"
                 android:textSize="25sp" />
 
-            <Spinner
-                android:id="@+id/shiftType"
-                android:layout_width="200dp"
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/delete"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:entries="@array/shifttypes" />
+                android:layout_marginRight="4dp"
+                app:backgroundTint="@android:color/holo_red_dark"
+                app:fabSize="mini"
+                app:srcCompat="@android:drawable/ic_menu_delete"
+                app:elevation="0dp" />
 
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/chooseDay"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:hint="Choose Day..." />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/mButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="M" />
+
+            <RadioButton
+                android:id="@+id/tButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="T" />
+
+            <RadioButton
+                android:id="@+id/wButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="W" />
+
+            <RadioButton
+                android:id="@+id/thButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Th" />
+
+            <RadioButton
+                android:id="@+id/fButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="F" />
+
+            <RadioButton
+                android:id="@+id/sButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="S" />
+
+            <RadioButton
+                android:id="@+id/suButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Su" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/startTime"
+                android:layout_width="174dp"
+                android:layout_height="wrap_content"
+                android:hint="Start Time"
+                android:inputType="time"
+                android:nextFocusDown="@+id/endTime"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:text="to"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/endTime"
+                android:layout_width="174dp"
+                android:layout_height="wrap_content"
+                android:hint="End Time"
+                android:inputType="time"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -66,103 +164,12 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/mButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="M" />
-
-            <CheckBox
-                android:id="@+id/tButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="T" />
-
-            <CheckBox
-                android:id="@+id/wButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="W" />
-
-            <CheckBox
-                android:id="@+id/thButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Th" />
-
-            <CheckBox
-                android:id="@+id/fButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="F" />
-
-            <CheckBox
-                android:id="@+id/sButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="S" />
-
-            <CheckBox
-                android:id="@+id/suButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Su" />
-        </LinearLayout>
-
         <EditText
-            android:id="@+id/chooseDate"
+            android:id="@+id/quantity"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:ems="10"
-            android:hint="Date of Payment"
-            android:inputType="date" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/startTime"
-                android:layout_width="174dp"
-                android:layout_height="wrap_content"
-                android:hint="Start Time"
-                android:inputType="time"
-                android:nextFocusDown="@+id/endTime"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="24dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="to"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/endTime"
-                android:layout_width="174dp"
-                android:layout_height="wrap_content"
-                android:hint="End Time"
-                android:inputType="time"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-        </LinearLayout>
+            android:hint="Quantity" />
 
     </LinearLayout>
 

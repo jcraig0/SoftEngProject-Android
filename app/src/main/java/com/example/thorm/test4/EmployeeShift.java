@@ -3,25 +3,35 @@ package com.example.thorm.test4;
 
 public class EmployeeShift {
 
-    private double payAmount;
-    private String payRate;
-    private String date;
-    private String startTime;
-    private String endTime;
-    private String duration;
-    private String commission;
-
-    public EmployeeShift() {
-        payRate = "total";
+    enum Day {
+        SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;
     }
 
-    public double getPayAmount() { return payAmount; }
-    public void setPayAmount(double d) { payAmount = d; }
+    private Day day;
+    private String week;
+    private String startTime;
+    private String endTime;
+    private String quantity;
 
-    public String getPayRate() { return payRate; }
+    public EmployeeShift() {
 
-    public String getDate() { return date; }
-    public void setDate(String s) { date = s; }
+    }
+
+    public EmployeeShift(Day day, String week, String startTime, String endTime, String quantity) {
+        this.day = day;
+        this.week = week;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.quantity = quantity;
+    }
+
+    public Day getDay() { return day; }
+    public void setDay(Day s) { day = s; }
+
+    public String getWeek() { return week; }
+    public void setWeek(String s){
+        week = s;
+    }
 
     public String getStartTime() { return startTime; }
     public void setStartTime(String s){
@@ -33,10 +43,7 @@ public class EmployeeShift {
         endTime = s;
     }
 
-    public String getDuration() { return duration; }
-    public void setDuration(String s) { duration = s; }
-
-    public String getCommission() { return commission; }
-    public void setCommission(String s) { commission = s; }
+    public String getQuantity() { return quantity; }
+    public void setQuantity(String s) { quantity = s; }
 
 }

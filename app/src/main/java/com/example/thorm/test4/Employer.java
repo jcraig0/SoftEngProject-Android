@@ -1,8 +1,10 @@
 package com.example.thorm.test4;
 
 import java.util.ArrayList;
+import com.example.thorm.test4.EmployeeShift.Day;
 
 public class Employer {
+
 
     public static Employer TestEmployer;
 
@@ -22,7 +24,7 @@ public class Employer {
 
         for (int i = 0; i < this.employees.size(); i++){
             Employee e = this.employees.get(i);
-            if (e.ID.equals(id)){
+            if (e.getID().equals(id)){
                 return e;
             }
         }
@@ -33,20 +35,22 @@ public class Employer {
         Employer cos420 = new Employer("COS420");
         TestEmployer = cos420;
 
-        cos420.addEmployee(new Employee("Justin", "0"));
-        cos420.addEmployee(new Employee("Aaron", "1"));
-        cos420.addEmployee(new Employee("Tim","spaceman"));
-        cos420.addEmployee(new Employee("Jovon", "2"));
-        cos420.addEmployee(new Employee("Tim","tim"));
-        cos420.addEmployee(new Employee("Patrick","!"));
+        cos420.addEmployee(new Employee("Justin", "0", true));
+        cos420.addEmployee(new Employee("Aaron", "1", true));
+        cos420.addEmployee(new Employee("Tim","spaceman", true));
+        cos420.addEmployee(new Employee("Jovon", "2", false));
+        cos420.addEmployee(new Employee("Tim","tim", false));
+        cos420.addEmployee(new Employee("Patrick","!", false));
 
-        cos420.getEmployeeByID("0").addJob("Project Manager");
-        cos420.getEmployeeByID("0").addJob("API Builder");
-        cos420.getEmployeeByID("1").addJob("iOS Dev");
-        cos420.getEmployeeByID("spaceman").addJob("Odd Jobs");
-        cos420.getEmployeeByID("2").addJob("UI & Testing");
-        cos420.getEmployeeByID("tim").addJob("Database");
-        cos420.getEmployeeByID("!").addJob("Android Dev");
+        cos420.getEmployeeByID("0").addJob("Project Manager", "hours");
+        cos420.getEmployeeByID("0").addJob("API Builder", "hours");
+        cos420.getEmployeeByID("1").addJob("iOS Dev", "dollars");
+        cos420.getEmployeeByID("spaceman").addJob("Odd Jobs", "dollars");
+        cos420.getEmployeeByID("2").addJob("UI & Testing", "hours");
+        cos420.getEmployeeByID("tim").addJob("Database", "dollars");
+        cos420.getEmployeeByID("!").addJob("Android Dev", "dollars");
+
+        cos420.getEmployeeByID("0").jobs.get(0).shifts.add(new EmployeeShift(Day.MONDAY, "4/9/2018", null, null, "3.33"));
     }
 
 }

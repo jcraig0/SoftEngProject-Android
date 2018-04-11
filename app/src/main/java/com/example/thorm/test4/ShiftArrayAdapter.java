@@ -9,15 +9,16 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
-
 public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
+    Employee.Job job;
     ArrayList<EmployeeShift> shifts = new ArrayList<>();
 
-    public ShiftArrayAdapter(Context context){
+    public ShiftArrayAdapter(Context context, Employee.Job job){
         super(context, 0);
+        this.job = job;
+        this.shifts = job.shifts;
     }
 
     @Override
@@ -46,7 +47,6 @@ public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
         shiftNumber.setText("Shift ".concat(String.valueOf(position+1)));
 
         TextView payRate = convertView.findViewById(R.id.payRate);
-        payRate.setText(shifts.get(position).getPayRate());
 
         LinearLayout layout = convertView.findViewById(R.id.shiftLayout);
         if (position % 2 == 1)

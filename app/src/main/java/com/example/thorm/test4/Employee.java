@@ -5,21 +5,41 @@ import java.util.ArrayList;
 
 public class Employee {
 
+    public class Job {
+        private String name;
+        private String unit;
+        ArrayList<EmployeeShift> shifts;
+
+        public Job(String name, String unit) {
+            this.name = name;
+            this.unit = unit;
+            shifts = new ArrayList<>();
+        }
+
+        public String getName() { return name; }
+        public String getUnit() { return unit; }
+    }
+
     public static Employee selectedEmployee = null;
 
-    String NAME;
-    String ID;
-    ArrayList<String> jobs = new ArrayList<>();
+    private String NAME;
+    private String ID;
+    private boolean active;
+    ArrayList<Job> jobs = new ArrayList<>();
     ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<>();
 
-    public Employee(String name, String id){
+    public Employee(String name, String id, boolean active){
         this.NAME = name;
         this.ID = id;
+        this.active = active;
     }
 
-    public void addJob(String jobName){
-        this.jobs.add(jobName);
-    }
+    public String getName() { return NAME; }
+    public String getID() { return ID; }
+    public boolean getActive() { return active; }
 
+    public void addJob(String name, String unit) {
+        this.jobs.add(new Job(name, unit));
+    }
 
 }

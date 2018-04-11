@@ -1,6 +1,8 @@
 package com.example.thorm.test4;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Button;
@@ -21,7 +24,6 @@ public class PayActivity extends AppCompatActivity {
     ListView shiftsLV;
     ArrayList<String> jobs = new ArrayList<>();
     ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<>();
-
     int activeJob = 0;
 
     @Override
@@ -31,12 +33,13 @@ public class PayActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Employee currentEmployee = Employee.selectedEmployee;
-        setTitle(currentEmployee.NAME);
+        setTitle(currentEmployee.getName());
 
-        jobs = currentEmployee.jobs;
         jobsAdapterList = currentEmployee.jobsAdapterList;
-        for (int i = 0; i < jobs.size(); i++)
-            jobsAdapterList.add(new ShiftArrayAdapter(this));
+        for (Employee.Job j : currentEmployee.jobs) {
+            jobs.add(j.getName());
+            jobsAdapterList.add(new ShiftArrayAdapter(this, j));
+        }
 
         final Spinner s = findViewById(R.id.jobSelectionBT);
         ArrayAdapter<String> sAdapter = new ArrayAdapter<>(this, R.layout.text_view, jobs);
@@ -74,7 +77,7 @@ public class PayActivity extends AppCompatActivity {
                 // How to access a text view in the list
                 EditText e = shiftsLV.getChildAt(0).findViewById(R.id.payAmount);
 
-                Snackbar.make(view, "Changes saved to "+currentEmployee.NAME, Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Changes saved to "+currentEmployee.getName(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

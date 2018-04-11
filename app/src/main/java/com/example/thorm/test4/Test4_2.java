@@ -21,6 +21,7 @@ import java.util.HashMap;
 public class Test4_2 extends AppCompatActivity {
 
     final Employer currentEmployer = Employer.TestEmployer;
+    ArrayList<Employee> employees;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,32 +29,40 @@ public class Test4_2 extends AppCompatActivity {
         setContentView(R.layout.activity_test4_2);
         setTitle("Employee List");
 
-        makeAdapter(currentEmployer.employees);
+        employees = makeAdapter(currentEmployer.employees);
 
         final ListView employeeList = findViewById(R.id.employeeLV);
         employeeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Employee.selectedEmployee = currentEmployer.employees.get(position);
-
+                Employee.selectedEmployee = employees.get(position);
                 Intent toPayActivity = new Intent(Test4_2.this, PayActivity.class);
                 startActivity(toPayActivity);
             }
         });
     }
 
-    public void makeAdapter(ArrayList<Employee> employees) {
+    public ArrayList<Employee> makeAdapter(ArrayList<Employee> employees) {
+        ArrayList<Employee> sorted = new ArrayList<>(employees);
+        Collections.sort(sorted, new Comparator<Employee>() {
+            @Override
+            public int compare(Employee e1, Employee e2) {
+                return e1.getName().compareTo(e2.getName());
+            }
+        });
+
         ArrayList<HashMap<String,String>> hash = new ArrayList<>();
-        for (Employee e : employees) {
+        for (Employee e : sorted) {
             HashMap<String,String> item = new HashMap<>();
-            item.put("line1", e.NAME);
-            item.put("line2", "ID: "+e.ID);
+            item.put("line1", e.getName());
+            item.put("line2", "ID: "+e.getID());
             hash.add(item);
         }
 
         SimpleAdapter adapter = new SimpleAdapter(this, hash, R.layout.linear_layout, new String[]{"line1","line2"}, new int[]{R.id.textView1, R.id.textView2});
         ListView employeeList = findViewById(R.id.employeeLV);
         employeeList.setAdapter(adapter);
+        return sorted;
     }
 
     @Override
@@ -66,31 +75,19 @@ public class Test4_2 extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.order:
-                String[] orders = "Alphabetical,Alphabetical (Reverse),Unfilled First".split(",");
+                String[] orders = "Show All,Show Active Only,Sort by Job".split(",");
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Choose Order")
+                builder.setTitle("Choose Action")
                        .setItems(orders, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         switch (i) {
                             case 0:
-                                ArrayList<Employee> newList = new ArrayList<>(currentEmployer.employees);
-                                Collections.sort(newList, new Comparator<Employee>() {
-                                    @Override
-                                    public int compare(Employee e1, Employee e2) {
-                                        return e1.NAME.compareTo(e2.NAME);
-                                    }
-                                });
-                                makeAdapter(newList);
+                                employees = makeAdapter(currentEmployer.employees);
                                 break;
                             case 1:
-                                newList = new ArrayList<>(currentEmployer.employees);
-                                Collections.sort(newList, new Comparator<Employee>() {
-                                    @Override
-                                    public int compare(Employee e1, Employee e2) {
-                                        return e2.NAME.compareTo(e1.NAME);
-                                    }
-                                });
+                                ArrayList<Employee> newList = new ArrayList<>(currentEmployer.employees);
+
                                 makeAdapter(newList);
                                 break;
                             case 2:
