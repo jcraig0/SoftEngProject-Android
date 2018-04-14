@@ -45,16 +45,25 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/chooseDay"
+            android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:ems="10"
-            android:hint="Choose Day..." />
+            android:inputType="date"
+            android:hint="Date of Payment" />
 
         <RadioGroup
+            android:id="@+id/daygroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/suButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Su" />
 
             <RadioButton
                 android:id="@+id/mButton"
@@ -98,15 +107,10 @@
                 android:layout_weight="1"
                 android:text="S" />
 
-            <RadioButton
-                android:id="@+id/suButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Su" />
         </RadioGroup>
 
         <LinearLayout
+            android:id="@+id/startEndRow"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -141,21 +145,22 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/amountRow"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/payAmount"
+                android:id="@+id/amount"
                 android:layout_width="184dp"
                 android:layout_height="wrap_content"
-                android:hint="Pay Amount"
+                android:hint="Amount"
                 android:inputType="numberDecimal"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/payRate"
+                android:id="@+id/unit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -163,13 +168,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </LinearLayout>
-
-        <EditText
-            android:id="@+id/quantity"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:ems="10"
-            android:hint="Quantity" />
 
     </LinearLayout>
 

@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -18,7 +20,7 @@ public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
     public ShiftArrayAdapter(Context context, Employee.Job job){
         super(context, 0);
         this.job = job;
-        this.shifts = job.shifts;
+        shifts = job.shifts;
     }
 
     @Override
@@ -39,14 +41,22 @@ public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+        EmployeeShift shift = shifts.get(position);
 
-        if (convertView == null)
+        if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.content_pay, parent, false);
+
+            if (!shift.isVisible()) {
+                readShiftInfo(position, convertView);
+                shift.setVisible(true);
+            }
+        }
 
         TextView shiftNumber = convertView.findViewById(R.id.shiftNum);
         shiftNumber.setText("Shift ".concat(String.valueOf(position+1)));
 
-        TextView payRate = convertView.findViewById(R.id.payRate);
+        TextView unit = convertView.findViewById(R.id.unit);
+        unit.setText(job.getUnit());
 
         LinearLayout layout = convertView.findViewById(R.id.shiftLayout);
         if (position % 2 == 1)
@@ -54,7 +64,33 @@ public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
         else
             layout.setBackgroundColor(0);
 
+        LinearLayout startend = convertView.findViewById(R.id.startEndRow);
+        LinearLayout amount = convertView.findViewById(R.id.amountRow);
+        if (job.getUnit() != null)
+            startend.setVisibility(View.GONE);
+        else
+            amount.setVisibility(View.GONE);
+
         return convertView;
+    }
+
+    public boolean readShiftInfo(int pos, View view) {
+        EditText date = view.findViewById(R.id.date);
+        RadioGroup days = view.findViewById(R.id.daygroup);
+        EditText startTime = view.findViewById(R.id.startTime);
+        EditText endTime = view.findViewById(R.id.endTime);
+        EditText amount = view.findViewById(R.id.amount);
+        TextView unit = view.findViewById(R.id.unit);
+
+        EmployeeShift s = shifts.get(pos);
+        date.setText(s.getDate());
+        days.check(days.getChildAt(s.getDay().ordinal()).getId());
+        startTime.setText(s.getStartTime());
+        endTime.setText(s.getEndTime());
+        amount.setText(s.getAmount());
+        unit.setText(job.getUnit());
+
+        return true;
     }
 
 }

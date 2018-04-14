@@ -48,9 +48,11 @@ public class Employer {
         cos420.getEmployeeByID("spaceman").addJob("Odd Jobs", "dollars");
         cos420.getEmployeeByID("2").addJob("UI & Testing", "hours");
         cos420.getEmployeeByID("tim").addJob("Database", "dollars");
-        cos420.getEmployeeByID("!").addJob("Android Dev", "dollars");
+        cos420.getEmployeeByID("!").addJob("Android Dev", null);
 
-        cos420.getEmployeeByID("0").jobs.get(0).shifts.add(new EmployeeShift(Day.MONDAY, "4/9/2018", null, null, "3.33"));
+        cos420.getEmployeeByID("0").jobs.get(0).shifts.add(new EmployeeShift("4/9/2018", Day.MONDAY, null, null, "3.33", "hours"));
+        cos420.getEmployeeByID("0").jobs.get(0).shifts.add(new EmployeeShift("4/10/2018", Day.TUESDAY, null, null, "3.33", "hours"));
+        cos420.getEmployeeByID("!").jobs.get(0).shifts.add(new EmployeeShift("4/11/2018", Day.WEDNESDAY, "8:00 AM", "12:00 PM", null, null));
     }
 
 }

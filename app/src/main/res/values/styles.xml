@@ -2,15 +2,15 @@
 
     <!-- Theme without action bar. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">#009000</item>
+        <item name="colorPrimaryDark">#006000</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <!-- Theme with action bar.. -->
     <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">#009000</item>
+        <item name="colorPrimaryDark">#006600</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 

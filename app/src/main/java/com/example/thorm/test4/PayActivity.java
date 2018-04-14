@@ -16,14 +16,17 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import java.util.ArrayList;
+import com.example.thorm.test4.EmployeeShift.*;
 
 public class PayActivity extends AppCompatActivity {
 
     ListView shiftsLV;
     ArrayList<String> jobs = new ArrayList<>();
     ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<>();
+    final Employee currentEmployee = Employee.selectedEmployee;
     int activeJob = 0;
 
     @Override
@@ -32,13 +35,20 @@ public class PayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_job);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final Employee currentEmployee = Employee.selectedEmployee;
         setTitle(currentEmployee.getName());
 
         jobsAdapterList = currentEmployee.jobsAdapterList;
         for (Employee.Job j : currentEmployee.jobs) {
             jobs.add(j.getName());
             jobsAdapterList.add(new ShiftArrayAdapter(this, j));
+        }
+
+        shiftsLV = findViewById(R.id.shiftsLV);
+        for (EmployeeShift s : jobsAdapterList.get(activeJob).shifts) {
+            if (!s.isSaved())
+                jobsAdapterList.get(activeJob).shifts.remove(s);
+            else
+                s.setVisible(false);
         }
 
         final Spinner s = findViewById(R.id.jobSelectionBT);
@@ -51,6 +61,8 @@ public class PayActivity extends AppCompatActivity {
                 int pos = jobs.indexOf(s.getSelectedItem().toString());
                 shiftsLV.setAdapter(jobsAdapterList.get(pos));
                 activeJob = pos;
+                for (EmployeeShift s : jobsAdapterList.get(pos).shifts)
+                    s.setVisible(false);
             }
 
             @Override
@@ -58,9 +70,6 @@ public class PayActivity extends AppCompatActivity {
                 s.setSelection(0);
             }
         });
-
-        shiftsLV = findViewById(R.id.shiftsLV);
-        shiftsLV.setAdapter(jobsAdapterList.get(activeJob));
 
         Button addShift = findViewById(R.id.addShiftBT);
         addShift.setOnClickListener(new View.OnClickListener() {
@@ -74,14 +83,38 @@ public class PayActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // How to access a text view in the list
-                EditText e = shiftsLV.getChildAt(0).findViewById(R.id.payAmount);
+                boolean write = writeShiftInfo();
 
-                Snackbar.make(view, "Changes saved to "+currentEmployee.getName(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (write) {
+                    for (EmployeeShift s : jobsAdapterList.get(activeJob).shifts)
+                        s.setSaved(true);
+                    Snackbar.make(view, "Changes saved to "+currentEmployee.getName(), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
 
+    }
+
+    public boolean writeShiftInfo() {
+        int index = 0;
+        for (EmployeeShift s : jobsAdapterList.get(activeJob).shifts) {
+            View child = shiftsLV.getChildAt(index);
+            EditText date = child.findViewById(R.id.date);
+            RadioGroup days = child.findViewById(R.id.daygroup);
+            EditText startTime = child.findViewById(R.id.startTime);
+            EditText endTime = child.findViewById(R.id.endTime);
+            EditText amount = child.findViewById(R.id.amount);
+
+            s.setDate(date.getText().toString());
+            s.setDay(Day.values()[days.indexOfChild(days.findViewById(days.getCheckedRadioButtonId()))]);
+            s.setStartTime(startTime.getText().toString());
+            s.setEndTime(endTime.getText().toString());
+            s.setAmount(amount.getText().toString());
+
+            index++;
+        }
+        return true;
     }
 
     @Override
