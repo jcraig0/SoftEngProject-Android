@@ -30,3 +30,6 @@ Implemented alphabetical and reverse alphabetical sorting in the Employee screen
 
 4/11/2018
 Modified shift layout, Employee, and EmployeeShift classes to better match project specifications. Added a delete button on the shift layout. Fixed bug where clicking on a sorted Employee entry led to the equivalent unsorted entry.
+
+4/14/2018
+Added read and save functionality to pay screen. Made shift layout adapt to type of job (start/end times or amount). Fixed bug where unsaved new shifts always remained in the screen. Changed color scheme to green. Lowered log-in screen views slightly. 
