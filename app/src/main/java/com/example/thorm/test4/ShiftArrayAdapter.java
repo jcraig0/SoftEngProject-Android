@@ -60,7 +60,7 @@ public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
 
         LinearLayout layout = convertView.findViewById(R.id.shiftLayout);
         if (position % 2 == 1)
-            layout.setBackgroundColor(Color.rgb(240,240,255));
+            layout.setBackgroundColor(Color.rgb(240,255,240));
         else
             layout.setBackgroundColor(0);
 
