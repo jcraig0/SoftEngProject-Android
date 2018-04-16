@@ -33,3 +33,6 @@ Modified shift layout, Employee, and EmployeeShift classes to better match proje
 
 4/14/2018
 Added read and save functionality to pay screen. Made shift layout adapt to type of job (start/end times or amount). Fixed bug where unsaved new shifts always remained in the screen. Changed color scheme to green.  Changed first radio button from Monday to Sunday. Lowered log-in screen views slightly. 
+
+4/16/2018
+Added app launcher icon and app name. Fixed shift layout not according to color scheme.
