@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -115,6 +116,10 @@ public class PayActivity extends AppCompatActivity {
             index++;
         }
         return true;
+    }
+
+    public void deleteShift(View view) {
+
     }
 
     @Override

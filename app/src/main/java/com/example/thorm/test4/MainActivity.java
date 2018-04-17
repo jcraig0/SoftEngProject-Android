@@ -25,14 +25,24 @@ public class MainActivity extends AppCompatActivity {
 
         final Intent intent = new Intent(this, Test4_2.class);
 
-        Button loginButton = (Button)findViewById(R.id.loginButton);
+        final String username = "1", password = "2", companycode = "3";
+        findViewById(R.id.oops).setVisibility(View.INVISIBLE);
+
+        Button loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                EditText userName = (EditText) findViewById(R.id.usernameET);
-                EditText password = (EditText) findViewById(R.id.passwordET);
-                EditText companyCode = (EditText) findViewById(R.id.passwordET);
+                String usernameText = ((EditText) findViewById(R.id.usernameET)).getText().toString();
+                String passwordText = ((EditText) findViewById(R.id.passwordET)).getText().toString();
+                String companycodeText = ((EditText) findViewById(R.id.companyNameET)).getText().toString();
+
+                if (usernameText.equals(username) && passwordText.equals(password) && companycodeText.equals(companycode)) {
+                    startActivity(intent);
+                    findViewById(R.id.oops).setVisibility(View.INVISIBLE);
+                }
+                else
+                    findViewById(R.id.oops).setVisibility(View.VISIBLE);
 
                 /*
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
@@ -52,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
                 queue.add(jsonObjectRequest);
                 */
-
-                startActivity(intent);
             }
         });
     }

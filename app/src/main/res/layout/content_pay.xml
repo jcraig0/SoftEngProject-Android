@@ -40,7 +40,8 @@
                 app:backgroundTint="@android:color/holo_red_dark"
                 app:fabSize="mini"
                 app:srcCompat="@android:drawable/ic_menu_delete"
-                app:elevation="0dp" />
+                app:elevation="0dp"
+                android:onClick="deleteShift" />
 
         </LinearLayout>
 
