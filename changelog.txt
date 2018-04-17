@@ -36,3 +36,6 @@ Added read and save functionality to pay screen. Made shift layout adapt to type
 
 4/16/2018
 Added app launcher icon and app name. Fixed shift layout not according to color scheme.
+
+4/17/2018
+Made authentication info checking (with sample data).
