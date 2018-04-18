@@ -8,4 +8,6 @@
         <item>Duration</item>
         <item>Commission</item>
     </string-array>
+    <string name="title_activity_settings">Settings</string>
+
 </resources>

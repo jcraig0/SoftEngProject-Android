@@ -87,8 +87,12 @@ public class Test4_2 extends AppCompatActivity {
                                 break;
                             case 1:
                                 ArrayList<Employee> newList = new ArrayList<>(currentEmployer.employees);
-
-                                makeAdapter(newList);
+                                for (int j=0; j < newList.size(); j++) {
+                                    Employee e = newList.get(j);
+                                    if (!e.getActive()) {
+                                        newList.remove(e); j--; }
+                                }
+                                employees = makeAdapter(newList);
                                 break;
                             case 2:
                                 break;
@@ -98,8 +102,10 @@ public class Test4_2 extends AppCompatActivity {
                 builder.create().show();
                 return true;
             case R.id.signout:
-                Intent toMainActivity = new Intent(this, MainActivity.class);
-                startActivity(toMainActivity);
+                startActivity(new Intent(this, MainActivity.class));
+                return true;
+            case R.id.about:
+                startActivity(new Intent(this, About.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

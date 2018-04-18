@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -86,12 +87,12 @@ public class PayActivity extends AppCompatActivity {
             public void onClick(View view) {
                 boolean write = writeShiftInfo();
 
-                if (write) {
-                    for (EmployeeShift s : jobsAdapterList.get(activeJob).shifts)
-                        s.setSaved(true);
-                    Snackbar.make(view, "Changes saved to "+currentEmployee.getName(), Snackbar.LENGTH_LONG)
+                if (write)
+                    Snackbar.make(view, "Changes saved to "+currentEmployee.getName()+", "+jobs.get(activeJob), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                }
+                else
+                    Snackbar.make(view, "Data error in "+currentEmployee.getName()+", "+jobs.get(activeJob), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
             }
         });
 
@@ -107,11 +108,32 @@ public class PayActivity extends AppCompatActivity {
             EditText endTime = child.findViewById(R.id.endTime);
             EditText amount = child.findViewById(R.id.amount);
 
-            s.setDate(date.getText().toString());
+            String dateStr = date.getText().toString();
+            String startTimeStr = startTime.getText().toString();
+            String endTimeStr = endTime.getText().toString();
+            String amountStr = amount.getText().toString();
+
+            /*
+            if (!dateStr.matches(""))
+                return false;
+            if (currentEmployee.jobs.get(activeJob).getUnit() == null) {
+                if (!startTimeStr.matches(""))
+                    return false;
+                if (!endTimeStr.matches(""))
+                    return false;
+            }
+            else {
+                if (!amountStr.matches(""))
+                    return false;
+            }
+            */
+
+            s.setDate(dateStr);
             s.setDay(Day.values()[days.indexOfChild(days.findViewById(days.getCheckedRadioButtonId()))]);
-            s.setStartTime(startTime.getText().toString());
-            s.setEndTime(endTime.getText().toString());
-            s.setAmount(amount.getText().toString());
+            s.setStartTime(startTimeStr);
+            s.setEndTime(endTimeStr);
+            s.setAmount(amountStr);
+            s.setSaved(true);
 
             index++;
         }
@@ -119,7 +141,8 @@ public class PayActivity extends AppCompatActivity {
     }
 
     public void deleteShift(View view) {
-
+        ViewGroup l = (ViewGroup) view.getParent().getParent();
+        l.setVisibility(View.GONE);
     }
 
     @Override
@@ -138,12 +161,13 @@ public class PayActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent toEmployees = new Intent(this, Test4_2.class);
-                startActivity(toEmployees);
+                finish();
                 return true;
             case R.id.signout:
-                Intent toMainActivity = new Intent(this, MainActivity.class);
-                startActivity(toMainActivity);
+                startActivity(new Intent(this, MainActivity.class));
+                return true;
+            case R.id.about:
+                startActivity(new Intent(this, About.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

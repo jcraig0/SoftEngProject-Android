@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.thorm.test4.About">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Payrr v1.0\n\nCreated by\nJustin Norman, Tim Thomas, Jovon Craig, Patrick Pettegrow, Aaron Speakman, Tim Bruce\n\nAndroid port by\nJovon Craig, Patrick Pettegrow"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:fontFamily="casual"
+        android:padding="6dp" />
+</android.support.constraint.ConstraintLayout>

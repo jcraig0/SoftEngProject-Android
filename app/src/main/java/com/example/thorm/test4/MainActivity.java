@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         final Intent intent = new Intent(this, Test4_2.class);
 
-        final String username = "1", password = "2", companycode = "3";
+        final String username = "1", password = "2";
         findViewById(R.id.oops).setVisibility(View.INVISIBLE);
 
         Button loginButton = findViewById(R.id.loginButton);
@@ -35,9 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
                 String usernameText = ((EditText) findViewById(R.id.usernameET)).getText().toString();
                 String passwordText = ((EditText) findViewById(R.id.passwordET)).getText().toString();
-                String companycodeText = ((EditText) findViewById(R.id.companyNameET)).getText().toString();
 
-                if (usernameText.equals(username) && passwordText.equals(password) && companycodeText.equals(companycode)) {
+                if (usernameText.equals(username) && passwordText.equals(password)) {
                     startActivity(intent);
                     findViewById(R.id.oops).setVisibility(View.INVISIBLE);
                 }
