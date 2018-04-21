@@ -1,40 +1,46 @@
 package com.example.thorm.test4;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class EmployeeShift {
 
-    enum Day {
-        SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;
-    }
-
-    private String date;
-    private Day day;
+    private Date date;
+    private int day;
     private String startTime;
     private String endTime;
     private String amount;
     private boolean visible;
     private boolean saved;
+    private boolean toDelete;
 
     public EmployeeShift() {
-        visible = false;
-        saved = false;
+        visible = saved = toDelete = false;
     }
 
-    public EmployeeShift(String date, Day day, String startTime, String endTime, String amount, String unit) {
-        this.date = date;
-        this.day = day;
+    public EmployeeShift(String date, String startTime, String endTime, String amount) {
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        try { this.date = f.parse(date); }
+        catch (ParseException e) {}
+        Calendar c = Calendar.getInstance();
+        c.setTime(this.date);
+        day = c.get(Calendar.DAY_OF_WEEK)-1;
+
         this.startTime = startTime;
         this.endTime = endTime;
         this.amount = amount;
         visible = false;
         saved = true;
+        toDelete = false;
     }
 
-    public String getDate() { return date; }
-    public void setDate(String s){ date = s; }
+    public Date getDate() { return date; }
+    public void setDate(Date s){ date = s; }
 
-    public Day getDay() { return day; }
-    public void setDay(Day s) { day = s; }
+    public int getDay() { return day; }
+    public void setDay(int s) { day = s; }
 
     public String getStartTime() { return startTime; }
     public void setStartTime(String s){ startTime = s; }
@@ -50,5 +56,8 @@ public class EmployeeShift {
 
     public boolean isSaved() { return saved; }
     public void setSaved(boolean s) { saved = s; }
+
+    public boolean isToDelete() { return toDelete; }
+    public void setToDelete(boolean s) { toDelete = s; }
 
 }

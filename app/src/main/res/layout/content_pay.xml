@@ -41,6 +41,7 @@
                 app:fabSize="mini"
                 app:srcCompat="@android:drawable/ic_menu_delete"
                 app:elevation="0dp"
+                android:focusable="false"
                 android:onClick="deleteShift" />
 
         </LinearLayout>
@@ -51,7 +52,8 @@
             android:layout_height="40dp"
             android:ems="10"
             android:inputType="date"
-            android:hint="Date of Payment" />
+            android:hint="Date"
+            android:onClick="dateClick" />
 
         <RadioGroup
             android:id="@+id/daygroup"
@@ -64,49 +66,56 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Su" />
+                android:text="Su"
+                android:onClick="dayClick" />
 
             <RadioButton
                 android:id="@+id/mButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="M" />
+                android:text="M"
+                android:onClick="dayClick" />
 
             <RadioButton
                 android:id="@+id/tButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="T" />
+                android:text="T"
+                android:onClick="dayClick" />
 
             <RadioButton
                 android:id="@+id/wButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="W" />
+                android:text="W"
+                android:onClick="dayClick" />
 
             <RadioButton
                 android:id="@+id/thButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Th" />
+                android:text="Th"
+                android:onClick="dayClick" />
 
             <RadioButton
                 android:id="@+id/fButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="F" />
+                android:text="F"
+                android:onClick="dayClick" />
 
             <RadioButton
                 android:id="@+id/sButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="S" />
+                android:text="S"
+                android:onClick="dayClick" />
 
         </RadioGroup>
 
@@ -121,7 +130,6 @@
                 android:layout_width="174dp"
                 android:layout_height="wrap_content"
                 android:hint="Start Time"
-                android:inputType="time"
                 android:nextFocusDown="@+id/endTime"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
@@ -140,7 +148,6 @@
                 android:layout_width="174dp"
                 android:layout_height="wrap_content"
                 android:hint="End Time"
-                android:inputType="time"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </LinearLayout>

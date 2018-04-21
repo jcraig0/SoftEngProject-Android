@@ -20,8 +20,11 @@ import android.widget.ListView;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import com.example.thorm.test4.EmployeeShift.*;
+import java.util.Date;
 
 public class PayActivity extends AppCompatActivity {
 
@@ -46,12 +49,6 @@ public class PayActivity extends AppCompatActivity {
         }
 
         shiftsLV = findViewById(R.id.shiftsLV);
-        for (EmployeeShift s : jobsAdapterList.get(activeJob).shifts) {
-            if (!s.isSaved())
-                jobsAdapterList.get(activeJob).shifts.remove(s);
-            else
-                s.setVisible(false);
-        }
 
         final Spinner s = findViewById(R.id.jobSelectionBT);
         ArrayAdapter<String> sAdapter = new ArrayAdapter<>(this, R.layout.text_view, jobs);
@@ -63,8 +60,12 @@ public class PayActivity extends AppCompatActivity {
                 int pos = jobs.indexOf(s.getSelectedItem().toString());
                 shiftsLV.setAdapter(jobsAdapterList.get(pos));
                 activeJob = pos;
-                for (EmployeeShift s : jobsAdapterList.get(pos).shifts)
-                    s.setVisible(false);
+                for (EmployeeShift sh : jobsAdapterList.get(pos).shifts) {
+                    if (!sh.isSaved())
+                        jobsAdapterList.get(activeJob).shifts.remove(sh);
+                    else
+                        sh.setVisible(false);
+                }
             }
 
             @Override
@@ -91,7 +92,7 @@ public class PayActivity extends AppCompatActivity {
                     Snackbar.make(view, "Changes saved to "+currentEmployee.getName()+", "+jobs.get(activeJob), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 else
-                    Snackbar.make(view, "Data error in "+currentEmployee.getName()+", "+jobs.get(activeJob), Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Data format error in "+currentEmployee.getName()+", "+jobs.get(activeJob), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
             }
         });
@@ -113,27 +114,26 @@ public class PayActivity extends AppCompatActivity {
             String endTimeStr = endTime.getText().toString();
             String amountStr = amount.getText().toString();
 
-            /*
-            if (!dateStr.matches(""))
-                return false;
+            Date dateObj;
+            try { dateObj = new SimpleDateFormat("M/d/y").parse(dateStr); }
+            catch (ParseException e) { return false; }
+
             if (currentEmployee.jobs.get(activeJob).getUnit() == null) {
-                if (!startTimeStr.matches(""))
-                    return false;
-                if (!endTimeStr.matches(""))
+                String match = "\\s*([1-9]|10|11|12)(\\:[0-5][0-9]\\s*(am|pm|AM|PM|a\\.m\\.|p\\.m\\.|A\\.M\\.|P\\.M\\.))?\\s*";
+                if (!startTimeStr.matches(match) || !endTimeStr.matches(match))
                     return false;
             }
             else {
-                if (!amountStr.matches(""))
+                if (Double.parseDouble(amountStr) <= 0)
                     return false;
             }
-            */
 
-            s.setDate(dateStr);
-            s.setDay(Day.values()[days.indexOfChild(days.findViewById(days.getCheckedRadioButtonId()))]);
+            s.setDate(dateObj);
+            s.setDay(days.indexOfChild(days.findViewById(days.getCheckedRadioButtonId())));
             s.setStartTime(startTimeStr);
             s.setEndTime(endTimeStr);
             s.setAmount(amountStr);
-            s.setSaved(true);
+            s.setSaved(!s.isToDelete());
 
             index++;
         }
@@ -141,9 +141,55 @@ public class PayActivity extends AppCompatActivity {
     }
 
     public void deleteShift(View view) {
-        ViewGroup l = (ViewGroup) view.getParent().getParent();
-        l.setVisibility(View.GONE);
+        ViewGroup parent = (ViewGroup) view.getParent().getParent();
+        parent.setVisibility(View.GONE);
+
+        ListView list = (ListView) parent.getParent().getParent();
+        int index = list.indexOfChild((View) parent.getParent());
+        jobsAdapterList.get(activeJob).shifts.get(index).setToDelete(true);
     }
+
+    /*
+    public void dateClick(View view) {
+        final EditText e = (EditText) view;
+        e.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Date d = null;
+                SimpleDateFormat f = new SimpleDateFormat("M/d/y");
+                try { d = f.parse(e.getText().toString()); }
+                catch (ParseException e) {}
+                if (d != null) {
+                    java.util.Calendar c = java.util.Calendar.getInstance();
+                    c.setTime(d);
+                    RadioGroup days = ((ViewGroup) e.getParent()).findViewById(R.id.daygroup);
+                    days.check(java.util.Calendar.DAY_OF_WEEK);
+                }
+            }
+        });
+    }
+
+    public void dayClick(View view) {
+        RadioGroup days = (RadioGroup) view.getParent();
+        int index = days.indexOfChild(days.findViewById(days.getCheckedRadioButtonId()));
+
+        EditText dateText = ((ViewGroup) days.getParent()).findViewById(R.id.date);
+        Date d = null;
+        SimpleDateFormat f = new SimpleDateFormat("M/d/y");
+        try { d = f.parse(dateText.getText().toString()); }
+        catch (ParseException e) {}
+        if (d != null) {
+            java.util.Calendar c = java.util.Calendar.getInstance();
+            c.setTime(d);
+            c.set(java.util.Calendar.DAY_OF_WEEK, index+1);
+            dateText.setText(f.format(c));
+        }
+    }
+    */
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {

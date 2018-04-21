@@ -11,16 +11,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Test4_2 extends AppCompatActivity {
 
-    final Employer currentEmployer = Employer.TestEmployer;
+    Employer currentEmployer;
     ArrayList<Employee> employees;
 
     @Override
@@ -29,6 +30,8 @@ public class Test4_2 extends AppCompatActivity {
         setContentView(R.layout.activity_test4_2);
         setTitle("Employee List");
 
+        Employer.createEmployerList();
+        currentEmployer = Employer.TestEmployer;
         employees = makeAdapter(currentEmployer.employees);
 
         final ListView employeeList = findViewById(R.id.employeeLV);
@@ -75,7 +78,7 @@ public class Test4_2 extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.order:
-                String[] orders = "Show All,Show Active Only,Sort by Job".split(",");
+                String[] orders = "Show All,Show Active Only,Show by Job".split(",");
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Choose Action")
                        .setItems(orders, new DialogInterface.OnClickListener() {
@@ -95,6 +98,7 @@ public class Test4_2 extends AppCompatActivity {
                                 employees = makeAdapter(newList);
                                 break;
                             case 2:
+                                filterByJob();
                                 break;
                         }
                     }
@@ -110,6 +114,37 @@ public class Test4_2 extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void filterByJob() {
+        HashSet<String> allJobs = new HashSet<String>();
+        for (Employee e : currentEmployer.employees) {
+            for (Employee.Job j : e.jobs)
+                allJobs.add(j.getName());
+        }
+        final String[] jobs = allJobs.toArray(new String[0]);
+        Arrays.sort(jobs);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose Job Name").setItems(jobs, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                ArrayList<Employee> newList = new ArrayList<>(currentEmployer.employees);
+                String choice = jobs[i];
+                for (int j=0; j < newList.size(); j++) {
+                    Employee e = newList.get(j);
+                    boolean present = false;
+                    for (Employee.Job k : e.jobs) {
+                        if (k.getName().equals(choice))
+                            present = true;
+                    }
+                    if (!present) {
+                        newList.remove(e); j--; }
+                }
+                employees = makeAdapter(newList);
+            }
+        });
+        builder.create().show();
     }
 
 }

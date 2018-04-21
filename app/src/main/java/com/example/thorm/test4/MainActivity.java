@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Employer.createEmployerList();
-
         final Intent intent = new Intent(this, Test4_2.class);
 
         final String username = "1", password = "2";
@@ -32,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String usernameText = ((EditText) findViewById(R.id.usernameET)).getText().toString();
                 String passwordText = ((EditText) findViewById(R.id.passwordET)).getText().toString();
 
@@ -42,25 +39,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                     findViewById(R.id.oops).setVisibility(View.VISIBLE);
-
-                /*
-                RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                    (Request.Method.POST, "localhost/server/public/authenticate", null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        userName.setText(response.toString());
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        userName.setText(error.toString());
-                    }
-                });
-
-                queue.add(jsonObjectRequest);
-                */
             }
         });
     }

@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
@@ -83,8 +85,10 @@ public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
         TextView unit = view.findViewById(R.id.unit);
 
         EmployeeShift s = shifts.get(pos);
-        date.setText(s.getDate());
-        days.check(days.getChildAt(s.getDay().ordinal()).getId());
+        if (s.getDate() != null) {
+            date.setText(new SimpleDateFormat("M/d/y").format(s.getDate()));
+            days.check(days.getChildAt(s.getDay()).getId());
+        }
         startTime.setText(s.getStartTime());
         endTime.setText(s.getEndTime());
         amount.setText(s.getAmount());
