@@ -39,3 +39,6 @@ Added app launcher icon and app name. Fixed shift layout not according to color 
 
 4/17/2018
 Made authentication info checking (with sample data).
+
+4/18/2018
+Removed company code from log-in screen. Added About screen, and replaced Settings menu item with About. Added shift delete button functionality. Implemented "active employees only" filter. Changed home button behavior so that the last activity state is saved.
