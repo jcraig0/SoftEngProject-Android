@@ -19,7 +19,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Test4_2 extends AppCompatActivity {
+public class EmployeeScreen extends AppCompatActivity {
 
     Employer currentEmployer;
     ArrayList<Employee> employees;
@@ -39,7 +39,7 @@ public class Test4_2 extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Employee.selectedEmployee = employees.get(position);
-                Intent toPayActivity = new Intent(Test4_2.this, PayActivity.class);
+                Intent toPayActivity = new Intent(EmployeeScreen.this, ShiftScreen.class);
                 startActivity(toPayActivity);
             }
         });
@@ -106,10 +106,10 @@ public class Test4_2 extends AppCompatActivity {
                 builder.create().show();
                 return true;
             case R.id.signout:
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, LogInScreen.class));
                 return true;
             case R.id.about:
-                startActivity(new Intent(this, About.class));
+                startActivity(new Intent(this, AboutScreen.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

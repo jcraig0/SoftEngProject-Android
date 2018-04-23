@@ -20,7 +20,7 @@ public class Settings extends AppCompatActivity {
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Settings.this, About.class));
+                startActivity(new Intent(Settings.this, AboutScreen.class));
             }
         });
     }
@@ -41,10 +41,10 @@ public class Settings extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(this, Test4_2.class));
+                startActivity(new Intent(this, EmployeeScreen.class));
                 return true;
             case R.id.signout:
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, LogInScreen.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

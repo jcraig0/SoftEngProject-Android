@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -73,7 +72,7 @@ public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
         else
             amount.setVisibility(View.GONE);
 
-        PayActivity.dateChange(convertView);
+        ShiftScreen.dateChange(convertView);
 
         return convertView;
     }

@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LogInScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,17 +19,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Test4_2"
+            android:name=".EmployeeScreen"
             android:theme="@style/DarkTheme" />
         <activity
-            android:name=".PayActivity"
+            android:name=".ShiftScreen"
             android:theme="@style/DarkTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Settings"
             android:theme="@style/DarkTheme" />
         <activity
-            android:name=".About"
+            android:name=".AboutScreen"
             android:theme="@style/DarkTheme" />
     </application>
 

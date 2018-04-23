@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class About extends AppCompatActivity {
+public class AboutScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class About extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.signout:
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, LogInScreen.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

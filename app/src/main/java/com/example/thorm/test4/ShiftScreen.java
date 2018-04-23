@@ -1,7 +1,6 @@
 package com.example.thorm.test4;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,10 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Button;
@@ -29,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class PayActivity extends AppCompatActivity {
+public class ShiftScreen extends AppCompatActivity {
 
     ListView shiftsLV;
     ArrayList<String> jobs = new ArrayList<>();
@@ -226,10 +223,10 @@ public class PayActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.signout:
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, LogInScreen.class));
                 return true;
             case R.id.about:
-                startActivity(new Intent(this, About.class));
+                startActivity(new Intent(this, AboutScreen.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -6,22 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
+public class LogInScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Intent intent = new Intent(this, Test4_2.class);
+        final Intent intent = new Intent(this, EmployeeScreen.class);
 
         final String username = "1", password = "2";
         findViewById(R.id.oops).setVisibility(View.INVISIBLE);
