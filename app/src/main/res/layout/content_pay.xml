@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="M"
+                android:text="Mo"
                 android:onClick="dayClick" />
 
             <RadioButton
@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="T"
+                android:text="Tu"
                 android:onClick="dayClick" />
 
             <RadioButton
@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="W"
+                android:text="We"
                 android:onClick="dayClick" />
 
             <RadioButton
@@ -105,7 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="F"
+                android:text="Fr"
                 android:onClick="dayClick" />
 
             <RadioButton
@@ -113,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="S"
+                android:text="Sa"
                 android:onClick="dayClick" />
 
         </RadioGroup>

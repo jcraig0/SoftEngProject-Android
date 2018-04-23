@@ -73,6 +73,8 @@ public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
         else
             amount.setVisibility(View.GONE);
 
+        PayActivity.dateChange(convertView);
+
         return convertView;
     }
 

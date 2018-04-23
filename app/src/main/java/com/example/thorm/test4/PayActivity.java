@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -151,9 +153,9 @@ public class PayActivity extends AppCompatActivity {
         jobsAdapterList.get(activeJob).shifts.get(index).setToDelete(true);
     }
 
-    /*
-    public void dateClick(View view) {
-        final EditText e = (EditText) view;
+    static public void dateChange(View view) {
+        final View v = view;
+        final EditText e = view.findViewById(R.id.date);
         e.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -161,22 +163,21 @@ public class PayActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
             public void afterTextChanged(Editable editable) {
-                Date d = null;
+                Date d;
                 SimpleDateFormat f = new SimpleDateFormat("M/d/y");
                 try {
                     d = f.parse(e.getText().toString());
                     if (d != null) {
                         java.util.Calendar c = java.util.Calendar.getInstance();
                         c.setTime(d);
-                        RadioGroup days = ((ViewGroup) e.getParent()).findViewById(R.id.daygroup);
-                        days.check(java.util.Calendar.DAY_OF_WEEK);
+                        RadioGroup days = v.findViewById(R.id.daygroup);
+                        days.check(days.getChildAt(c.get(java.util.Calendar.DAY_OF_WEEK)-1).getId());
                     }
                 }
                 catch (ParseException e) {}
             }
         });
     }
-    */
 
     public void dayClick(View view) {
         RadioGroup days = (RadioGroup) view.getParent();
