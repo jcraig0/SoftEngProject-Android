@@ -1,8 +1,9 @@
 package com.example.thorm.test4;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -89,10 +90,10 @@ public class PayActivity extends AppCompatActivity {
                 boolean write = writeShiftInfo();
 
                 if (write)
-                    Snackbar.make(view, "Changes saved to "+currentEmployee.getName()+", "+jobs.get(activeJob), Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Changes saved to "+currentEmployee.getName()+", "+jobs.get(activeJob)+".", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 else
-                    Snackbar.make(view, "Data format error in "+currentEmployee.getName()+", "+jobs.get(activeJob), Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Data format error in "+currentEmployee.getName()+", "+jobs.get(activeJob)+".", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
             }
         });
@@ -104,7 +105,6 @@ public class PayActivity extends AppCompatActivity {
         for (EmployeeShift s : jobsAdapterList.get(activeJob).shifts) {
             View child = shiftsLV.getChildAt(index);
             EditText date = child.findViewById(R.id.date);
-            RadioGroup days = child.findViewById(R.id.daygroup);
             EditText startTime = child.findViewById(R.id.startTime);
             EditText endTime = child.findViewById(R.id.endTime);
             EditText amount = child.findViewById(R.id.amount);
@@ -129,7 +129,9 @@ public class PayActivity extends AppCompatActivity {
             }
 
             s.setDate(dateObj);
-            s.setDay(days.indexOfChild(days.findViewById(days.getCheckedRadioButtonId())));
+            java.util.Calendar c = java.util.Calendar.getInstance();
+            c.setTime(dateObj);
+            s.setDay(c.get(java.util.Calendar.DAY_OF_WEEK)-1);
             s.setStartTime(startTimeStr);
             s.setEndTime(endTimeStr);
             s.setAmount(amountStr);
@@ -161,35 +163,48 @@ public class PayActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 Date d = null;
                 SimpleDateFormat f = new SimpleDateFormat("M/d/y");
-                try { d = f.parse(e.getText().toString()); }
-                catch (ParseException e) {}
-                if (d != null) {
-                    java.util.Calendar c = java.util.Calendar.getInstance();
-                    c.setTime(d);
-                    RadioGroup days = ((ViewGroup) e.getParent()).findViewById(R.id.daygroup);
-                    days.check(java.util.Calendar.DAY_OF_WEEK);
+                try {
+                    d = f.parse(e.getText().toString());
+                    if (d != null) {
+                        java.util.Calendar c = java.util.Calendar.getInstance();
+                        c.setTime(d);
+                        RadioGroup days = ((ViewGroup) e.getParent()).findViewById(R.id.daygroup);
+                        days.check(java.util.Calendar.DAY_OF_WEEK);
+                    }
                 }
+                catch (ParseException e) {}
             }
         });
     }
+    */
 
     public void dayClick(View view) {
         RadioGroup days = (RadioGroup) view.getParent();
         int index = days.indexOfChild(days.findViewById(days.getCheckedRadioButtonId()));
 
         EditText dateText = ((ViewGroup) days.getParent()).findViewById(R.id.date);
-        Date d = null;
+        Date d;
         SimpleDateFormat f = new SimpleDateFormat("M/d/y");
-        try { d = f.parse(dateText.getText().toString()); }
-        catch (ParseException e) {}
-        if (d != null) {
-            java.util.Calendar c = java.util.Calendar.getInstance();
-            c.setTime(d);
-            c.set(java.util.Calendar.DAY_OF_WEEK, index+1);
-            dateText.setText(f.format(c));
+        try {
+            d = f.parse(dateText.getText().toString());
+            if (d != null) {
+                java.util.Calendar c = java.util.Calendar.getInstance();
+                c.setTime(d);
+                c.set(java.util.Calendar.DAY_OF_WEEK, index+1);
+                dateText.setText(f.format(c.getTime()));
+            }
+        }
+        catch (ParseException e) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Alert")
+                    .setMessage("Date format is invalid.")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) { }
+                    });
+            builder.create().show();
         }
     }
-    */
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
