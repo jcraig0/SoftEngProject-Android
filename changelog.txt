@@ -46,5 +46,8 @@ Removed company code from log-in screen. Added About screen, and replaced Settin
 4/20/2018
 Added format checking when saving shifts. Made save functionality for delete shift button. Implemented "Show by Job" (not "Sort by Job") filter. Changed About screen text and its size. Added logo to log-in screen and changed color of that screen's title back to black. Fixed bug where switching jobs wouldn't show saved changes. Defocused "Log in" and save buttons (improving text entry flow).
 
-4/23/2018
-Allowed date to change when day radio buttons clicked. Fixed centering in start/end time and amount rows. Fixed bug where date was saved without changing the day. Added periods to save dialog.
+4/23/2018 2:18 PM
+Allowed date to change itself when day radio buttons clicked. Fixed centering in start/end time and amount rows. Fixed bug where date was saved without changing the day. Added periods to save dialog.
+
+4/23/2018 2:55 PM
+Allowed day buttons to check themselves when date changed. Changed day abbreviations to be all two-letter.
