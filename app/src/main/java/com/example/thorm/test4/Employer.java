@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public class Employer {
 
-    public static Employer TestEmployer;
-
+    public static Employer employer;
     String NAME;
     String ID;
     ArrayList<Employee> employees = new ArrayList<>();
@@ -31,7 +30,7 @@ public class Employer {
 
     public static void createEmployerList(){
         Employer cos420 = new Employer("COS420");
-        TestEmployer = cos420;
+        employer = cos420;
 
         cos420.addEmployee(new Employee("Justin", "0", true));
         cos420.addEmployee(new Employee("Aaron", "1", true));

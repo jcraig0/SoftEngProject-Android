@@ -72,8 +72,6 @@ public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
         else
             amount.setVisibility(View.GONE);
 
-        ShiftScreen.dateChange(convertView);
-
         return convertView;
     }
 

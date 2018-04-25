@@ -31,7 +31,7 @@ public class EmployeeScreen extends AppCompatActivity {
         setTitle("Employee List");
 
         Employer.createEmployerList();
-        currentEmployer = Employer.TestEmployer;
+        currentEmployer = Employer.employer;
         employees = makeAdapter(currentEmployer.employees);
 
         final ListView employeeList = findViewById(R.id.employeeLV);
@@ -39,8 +39,7 @@ public class EmployeeScreen extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Employee.selectedEmployee = employees.get(position);
-                Intent toPayActivity = new Intent(EmployeeScreen.this, ShiftScreen.class);
-                startActivity(toPayActivity);
+                startActivity(new Intent(EmployeeScreen.this, ShiftScreen.class));
             }
         });
     }

@@ -1,20 +1,20 @@
 package com.example.thorm.test4;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Button;
@@ -25,13 +25,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Calendar;
 
 public class ShiftScreen extends AppCompatActivity {
 
     ListView shiftsLV;
     ArrayList<String> jobs = new ArrayList<>();
     ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<>();
-    final Employee currentEmployee = Employee.selectedEmployee;
+    final Employee CURRENT_EMPLOYEE = Employee.selectedEmployee;
     int activeJob = 0;
 
     @Override
@@ -40,10 +41,10 @@ public class ShiftScreen extends AppCompatActivity {
         setContentView(R.layout.activity_job);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setTitle(currentEmployee.getName());
+        setTitle(CURRENT_EMPLOYEE.getName());
 
-        jobsAdapterList = currentEmployee.jobsAdapterList;
-        for (Employee.Job j : currentEmployee.jobs) {
+        jobsAdapterList = CURRENT_EMPLOYEE.jobsAdapterList;
+        for (Employee.Job j : CURRENT_EMPLOYEE.jobs) {
             jobs.add(j.getName());
             jobsAdapterList.add(new ShiftArrayAdapter(this, j));
         }
@@ -89,10 +90,10 @@ public class ShiftScreen extends AppCompatActivity {
                 boolean write = writeShiftInfo();
 
                 if (write)
-                    Snackbar.make(view, "Changes saved to "+currentEmployee.getName()+", "+jobs.get(activeJob)+".", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Changes saved to "+CURRENT_EMPLOYEE.getName()+", "+jobs.get(activeJob)+".", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 else
-                    Snackbar.make(view, "Data format error in "+currentEmployee.getName()+", "+jobs.get(activeJob)+".", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Data format error in "+CURRENT_EMPLOYEE.getName()+", "+jobs.get(activeJob)+".", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
             }
         });
@@ -117,7 +118,7 @@ public class ShiftScreen extends AppCompatActivity {
             try { dateObj = new SimpleDateFormat("M/d/y").parse(dateStr); }
             catch (ParseException e) { return false; }
 
-            if (currentEmployee.jobs.get(activeJob).getUnit() == null) {
+            if (CURRENT_EMPLOYEE.jobs.get(activeJob).getUnit() == null) {
                 String match = "\\s*([1-9]|10|11|12)(\\:[0-5][0-9]\\s*(am|pm|AM|PM|a\\.m\\.|p\\.m\\.|A\\.M\\.|P\\.M\\.))?\\s*";
                 if (!startTimeStr.matches(match) || !endTimeStr.matches(match))
                     return false;
@@ -150,30 +151,28 @@ public class ShiftScreen extends AppCompatActivity {
         jobsAdapterList.get(activeJob).shifts.get(index).setToDelete(true);
     }
 
-    static public void dateChange(View view) {
-        final View v = view;
-        final EditText e = view.findViewById(R.id.date);
-        e.addTextChangedListener(new TextWatcher() {
+    public void dateClick(View view) {
+        final EditText dateText = (EditText) view;
+        final View parent = (View) view.getParent();
+        final SimpleDateFormat f = new SimpleDateFormat("M/d/y");
+        Calendar c = Calendar.getInstance();
+        try {
+            Date d = f.parse(dateText.getText().toString());
+            if (d != null)
+                c.setTime(d);
+        }
+        catch (ParseException e) {}
+        DatePickerDialog picker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override
-            public void afterTextChanged(Editable editable) {
-                Date d;
-                SimpleDateFormat f = new SimpleDateFormat("M/d/y");
-                try {
-                    d = f.parse(e.getText().toString());
-                    if (d != null) {
-                        java.util.Calendar c = java.util.Calendar.getInstance();
-                        c.setTime(d);
-                        RadioGroup days = v.findViewById(R.id.daygroup);
-                        days.check(days.getChildAt(c.get(java.util.Calendar.DAY_OF_WEEK)-1).getId());
-                    }
-                }
-                catch (ParseException e) {}
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                Calendar c = Calendar.getInstance();
+                c.set(year, month, day);
+                dateText.setText(f.format(c.getTime()));
+                RadioGroup days = parent.findViewById(R.id.daygroup);
+                days.check(days.getChildAt(c.get(Calendar.DAY_OF_WEEK)-1).getId());
             }
-        });
+        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+        picker.show();
     }
 
     public void dayClick(View view) {
@@ -181,14 +180,13 @@ public class ShiftScreen extends AppCompatActivity {
         int index = days.indexOfChild(days.findViewById(days.getCheckedRadioButtonId()));
 
         EditText dateText = ((ViewGroup) days.getParent()).findViewById(R.id.date);
-        Date d;
         SimpleDateFormat f = new SimpleDateFormat("M/d/y");
         try {
-            d = f.parse(dateText.getText().toString());
+            Date d = f.parse(dateText.getText().toString());
             if (d != null) {
-                java.util.Calendar c = java.util.Calendar.getInstance();
+                Calendar c = Calendar.getInstance();
                 c.setTime(d);
-                c.set(java.util.Calendar.DAY_OF_WEEK, index+1);
+                c.set(Calendar.DAY_OF_WEEK, index+1);
                 dateText.setText(f.format(c.getTime()));
             }
         }
@@ -220,7 +218,7 @@ public class ShiftScreen extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                startActivity(new Intent(this, EmployeeScreen.class));
                 return true;
             case R.id.signout:
                 startActivity(new Intent(this, LogInScreen.class));
