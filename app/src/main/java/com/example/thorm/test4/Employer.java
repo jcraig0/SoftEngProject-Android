@@ -3,10 +3,14 @@ package com.example.thorm.test4;
 import java.util.ArrayList;
 import com.example.thorm.test4.EmployeeShift.Day;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Employer {
 
 
-    public static Employer TestEmployer;
+    public static Employer currentEmployer;
 
     String NAME;
     String ID;
@@ -31,16 +35,26 @@ public class Employer {
         return null;
     }
 
-    public static void createEmployerList(){
-        Employer cos420 = new Employer("COS420");
-        TestEmployer = cos420;
+    public static void createEmployerList(JSONArray jArray){
+        Employer temp = new Employer("ThisEmployer");
+        currentEmployer = temp;
 
-        cos420.addEmployee(new Employee("Justin", "0", true));
-        cos420.addEmployee(new Employee("Aaron", "1", true));
-        cos420.addEmployee(new Employee("Tim","spaceman", true));
-        cos420.addEmployee(new Employee("Jovon", "2", false));
-        cos420.addEmployee(new Employee("Tim","tim", false));
-        cos420.addEmployee(new Employee("Patrick","!", false));
+        for (int i = 0; i < jArray.length(); i++){
+
+            try {
+
+                JSONObject curr = jArray.getJSONObject(i);
+                temp.addEmployee(new Employee((curr)));
+
+            }catch(JSONException e){
+                temp.addEmployee(new Employee(null));
+            }
+        }
+    }
+
+
+/*
+    public static void createTestEmployerList(){
 
         cos420.getEmployeeByID("0").addJob("Project Manager", "hours");
         cos420.getEmployeeByID("0").addJob("API Builder", "hours");
@@ -52,5 +66,5 @@ public class Employer {
 
         cos420.getEmployeeByID("0").jobs.get(0).shifts.add(new EmployeeShift(Day.MONDAY, "4/9/2018", null, null, "3.33"));
     }
-
+*/
 }

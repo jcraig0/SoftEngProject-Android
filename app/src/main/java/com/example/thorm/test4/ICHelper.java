@@ -140,9 +140,7 @@ public class ICHelper {
 
                             }catch(JSONException e){
                                 e.printStackTrace();
-                                Log.d("Character606", response.substring(590,response.length()));
                             }
-
                         }
                     },
                     new Response.ErrorListener()
@@ -163,7 +161,6 @@ public class ICHelper {
                     }
                 };
 
-            Log.d("Request", getRequest.toString());
             queue.add(getRequest);
         }finally{
 

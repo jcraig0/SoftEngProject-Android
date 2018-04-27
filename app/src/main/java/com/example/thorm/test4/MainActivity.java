@@ -1,5 +1,6 @@
 package com.example.thorm.test4;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,7 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -47,11 +49,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Employer.createEmployerList();
-
         ICHelper.ICH = new ICHelper(this);
 
-         intent = new Intent(this, Test4_2.class);
+        intent = new Intent(this, Test4_2.class);
 
         Button loginButton = (Button)findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -62,13 +62,66 @@ public class MainActivity extends AppCompatActivity {
                 EditText password = (EditText) findViewById(R.id.passwordET);
                 EditText companyCode = (EditText) findViewById(R.id.passwordET);
 
-                if (ICHelper.ICH.loginRequest(userName.getText().toString(), password.getText().toString()))
-                {
-                    int timeOut = 1000;
-                    while(ICHelper.employeeJArray.getValue() == null && timeOut-- > 0);
-                    startActivity(intent);
-            }
+                ICHelper.ICH.loginRequest("SlartyBartfish", "Swordfish");
+
+
+                AsyncTaskRunner runner = new AsyncTaskRunner();
+                runner.execute("10");
+
         }});
+    }
+
+    public void waitForResponse(){
+        Employer.createEmployerList(ICHelper.employeeJArray.getValue());
+        startActivity(intent);
+    }
+
+    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
+
+        private String resp;
+        ProgressDialog progressDialog;
+
+        @Override
+        protected String doInBackground(String... params) {
+            publishProgress("Sleeping..."); // Calls onProgressUpdate()
+            try {
+                int time = Integer.parseInt(params[0])*1000;
+
+                Thread.sleep(time);
+                resp = "Slept for " + params[0] + " seconds";
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                resp = e.getMessage();
+            } catch (Exception e) {
+                e.printStackTrace();
+                resp = e.getMessage();
+            }
+            return resp;
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            // execution of result of Long time consuming operation
+            progressDialog.dismiss();
+
+            waitForResponse();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(MainActivity.this,
+                    "ProgressDialog",
+                    "Wait for "+5+ " seconds");
+        }
+
+
+        @Override
+        protected void onProgressUpdate(String... text) {
+            Log.d("WaitTime" ,text[0]);
+
+        }
+
     }
 }
 

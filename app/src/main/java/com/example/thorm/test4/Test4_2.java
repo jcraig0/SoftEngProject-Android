@@ -20,7 +20,7 @@ import java.util.HashMap;
 
 public class Test4_2 extends AppCompatActivity {
 
-    final Employer currentEmployer = Employer.TestEmployer;
+    final Employer currentEmployer = Employer.currentEmployer;
     ArrayList<Employee> employees;
 
     @Override

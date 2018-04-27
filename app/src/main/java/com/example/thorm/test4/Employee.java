@@ -1,6 +1,7 @@
 package com.example.thorm.test4;
 
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -24,24 +25,50 @@ public class Employee {
 
     public static Employee selectedEmployee = null;
 
-    private String NAME;
-    private String ID;
-    private boolean active;
+
     ArrayList<Job> jobs = new ArrayList<>();
     ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<>();
 
 
-    private JSONObject employeeData = new JSONObject();
+    private JSONObject employeeData;
 
-    public Employee(String name, String id, boolean active){
-        this.NAME = name;
-        this.ID = id;
-        this.active = active;
+    public Employee(JSONObject j){
+        if (j == null){
+            this.employeeData = null;
+        }else {
+            this.employeeData = j;
+        }
     }
 
-    public String getName() { return NAME; }
-    public String getID() { return ID; }
-    public boolean getActive() { return active; }
+    public String getName() {
+        try {
+            String name = String.format("%s %s %s", employeeData.get("firstname").toString(),
+                    employeeData.get("middlename").toString(), employeeData.get("lastname").toString());
+            return name;
+        }catch(JSONException e){
+            return "Error";
+        }
+    }
+
+    public String getID() {
+        try {
+            return employeeData.get("employer_employee_ID").toString();
+        }catch(JSONException e){
+            return "Error";
+        }
+    }
+    public boolean getActive() {
+        try {
+            String temp = employeeData.get("active").toString();
+            if (temp.equals("Active")){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(JSONException e){
+            return false;
+        }
+    }
 
     public void addJob(String name, String unit) {
         this.jobs.add(new Job(name, unit));
