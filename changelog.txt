@@ -44,7 +44,7 @@ Made authentication info checking (with sample data).
 Removed company code from log-in screen. Added About screen, and replaced Settings menu item with About. Added shift delete button functionality. Implemented "active employees only" filter. Changed home button behavior so that the last activity state is saved.
 
 4/20/2018
-Added format checking when saving shifts. Made save functionality for delete shift button. Implemented "Show by Job" (not "Sort by Job") filter. Changed About screen text and its size. Added logo to log-in screen and changed color of that screen's title back to black. Fixed bug where switching jobs wouldn't show saved changes. Defocused "Log in" and save buttons (improving text entry flow).
+Added format checking when saving shifts. Made save functionality for delete shift button. Implemented "Show by Job" (not "Sort by Job") filter. Changed About screen text and its size. Added logo to log-in screen and changed color of that screen's title back to black. Fixed bug where switching jobs wouldn't show saved changes. Defocused "Log in" button (improving text entry flow).
 
 4/23/2018 2:18 PM
 Allowed date to change itself when day radio buttons clicked. Fixed centering in start/end time and amount rows. Fixed bug where date was saved without changing the day. Added periods to save dialog.
@@ -54,3 +54,9 @@ Allowed day buttons to check themselves when date changed. Changed day abbreviat
 
 4/25/2018
 Replaced date text entry with a DatePickerDialog. Fixed alignment of logo in log-in screen.
+
+4/27/2018
+Allowed both start/end time and amount in same shift. Fixed time regex checking.
+
+4/27/2018
+Replaced time text entry with a TimePickerDialog. Disabled nextFocus for amount textbox (fixing text entry flow bug).
