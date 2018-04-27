@@ -1,6 +1,8 @@
 package com.example.thorm.test4;
 
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class Employee {
@@ -27,6 +29,9 @@ public class Employee {
     private boolean active;
     ArrayList<Job> jobs = new ArrayList<>();
     ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<>();
+
+
+    private JSONObject employeeData = new JSONObject();
 
     public Employee(String name, String id, boolean active){
         this.NAME = name;

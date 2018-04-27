@@ -55,7 +55,7 @@ public class Test4_2 extends AppCompatActivity {
         for (Employee e : sorted) {
             HashMap<String,String> item = new HashMap<>();
             item.put("line1", e.getName());
-            item.put("line2", "ID: "+e.getID());
+            item.put("line2", "ID: "+ e.getID());
             hash.add(item);
         }
 
