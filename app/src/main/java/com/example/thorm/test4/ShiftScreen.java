@@ -36,7 +36,6 @@ public class ShiftScreen extends AppCompatActivity {
     ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<>();
     final Employee CURRENT_EMPLOYEE = Employee.selectedEmployee;
     int activeJob = 0;
-    static DatePickerDialog picker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
