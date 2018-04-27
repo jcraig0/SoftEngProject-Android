@@ -51,3 +51,6 @@ Allowed date to change itself when day radio buttons clicked. Fixed centering in
 
 4/23/2018 2:55 PM
 Allowed day buttons to check themselves when date changed. Changed day abbreviations to be all two-letter.
+
+4/25/2018
+Replaced date text entry with a DatePickerDialog. Fixed alignment of logo in log-in screen.
