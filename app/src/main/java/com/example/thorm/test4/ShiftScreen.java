@@ -118,12 +118,12 @@ public class ShiftScreen extends AppCompatActivity {
             try { dateObj = new SimpleDateFormat("M/d/y").parse(dateStr); }
             catch (ParseException e) { return false; }
 
-            if (CURRENT_EMPLOYEE.jobs.get(activeJob).getUnit() == null) {
-                String match = "\\s*([1-9]|10|11|12)(\\:[0-5][0-9]\\s*(am|pm|AM|PM|a\\.m\\.|p\\.m\\.|A\\.M\\.|P\\.M\\.))?\\s*";
+            if (CURRENT_EMPLOYEE.jobs.get(activeJob).getType() != Employee.JobType.AMOUNT) {
+                String match = "\\s*([1-9]|10|11|12)(\\:[0-5][0-9])?\\s*(am|pm|AM|PM|a\\.m\\.|p\\.m\\.|A\\.M\\.|P\\.M\\.)\\s*";
                 if (!startTimeStr.matches(match) || !endTimeStr.matches(match))
                     return false;
             }
-            else {
+            else if (CURRENT_EMPLOYEE.jobs.get(activeJob).getType() != Employee.JobType.STARTEND) {
                 if (Double.parseDouble(amountStr) <= 0)
                     return false;
             }

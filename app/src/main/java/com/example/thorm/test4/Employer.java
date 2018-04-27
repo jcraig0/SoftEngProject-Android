@@ -39,16 +39,16 @@ public class Employer {
         cos420.addEmployee(new Employee("Tim","tim", false));
         cos420.addEmployee(new Employee("Patrick","!", false));
 
-        cos420.getEmployeeByID("0").addJob("Project Manager", "hours");
-        cos420.getEmployeeByID("0").addJob("API Builder", "hours");
-        cos420.getEmployeeByID("1").addJob("iOS Dev", "dollars");
-        cos420.getEmployeeByID("spaceman").addJob("Odd Jobs", "dollars");
-        cos420.getEmployeeByID("2").addJob("UI & Testing", "hours");
-        cos420.getEmployeeByID("tim").addJob("Database", "dollars");
-        cos420.getEmployeeByID("!").addJob("Android Dev", null);
+        cos420.getEmployeeByID("0").addJob("Project Manager", "hours", Employee.JobType.AMOUNT);
+        cos420.getEmployeeByID("0").addJob("API Builder", "hours", Employee.JobType.BOTH);
+        cos420.getEmployeeByID("1").addJob("iOS Dev", "dollars", Employee.JobType.AMOUNT);
+        cos420.getEmployeeByID("spaceman").addJob("Odd Jobs", "dollars", Employee.JobType.AMOUNT);
+        cos420.getEmployeeByID("2").addJob("UI & Testing", "hours", Employee.JobType.STARTEND);
+        cos420.getEmployeeByID("tim").addJob("Database", "dollars", Employee.JobType.AMOUNT);
+        cos420.getEmployeeByID("!").addJob("Android Dev", null, Employee.JobType.STARTEND);
 
         cos420.getEmployeeByID("0").jobs.get(0).shifts.add(new EmployeeShift("2018-04-09", null, null, "3.33"));
-        cos420.getEmployeeByID("0").jobs.get(0).shifts.add(new EmployeeShift("2018-04-10", null, null, "3.33"));
+        cos420.getEmployeeByID("0").jobs.get(1).shifts.add(new EmployeeShift("2018-04-10", "9 AM", "5 PM", "3.33"));
         cos420.getEmployeeByID("!").jobs.get(0).shifts.add(new EmployeeShift("2018-04-11", "8:00 AM", "12:00 PM", null));
     }
 
