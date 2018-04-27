@@ -27,6 +27,7 @@ public class LogInScreen extends AppCompatActivity {
                 String passwordText = ((EditText) findViewById(R.id.passwordET)).getText().toString();
 
                 if (usernameText.equals(username) && passwordText.equals(password)) {
+                    Employer.createEmployerList();
                     startActivity(intent);
                     findViewById(R.id.oops).setVisibility(View.INVISIBLE);
                 }

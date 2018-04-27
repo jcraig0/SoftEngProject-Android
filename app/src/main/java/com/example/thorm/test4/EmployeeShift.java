@@ -9,8 +9,8 @@ public class EmployeeShift {
 
     private Date date;
     private int day;
-    private String startTime;
-    private String endTime;
+    private Date startTime;
+    private Date endTime;
     private String amount;
     private boolean visible;
     private boolean saved;
@@ -28,8 +28,13 @@ public class EmployeeShift {
         c.setTime(this.date);
         day = c.get(Calendar.DAY_OF_WEEK)-1;
 
-        this.startTime = startTime;
-        this.endTime = endTime;
+        if (startTime != null && endTime != null) {
+            f = new SimpleDateFormat("HH:mm:ss");
+            try { this.startTime = f.parse(startTime); }
+            catch (ParseException e) {}
+            try { this.endTime = f.parse(endTime); }
+            catch (ParseException e) {}
+        }
         this.amount = amount;
         visible = false;
         saved = true;
@@ -42,11 +47,11 @@ public class EmployeeShift {
     public int getDay() { return day; }
     public void setDay(int s) { day = s; }
 
-    public String getStartTime() { return startTime; }
-    public void setStartTime(String s){ startTime = s; }
+    public Date getStartTime() { return startTime; }
+    public void setStartTime(Date s){ startTime = s; }
 
-    public String getEndTime() { return endTime; }
-    public void setEndTime(String s){ endTime = s; }
+    public Date getEndTime() { return endTime; }
+    public void setEndTime(Date s){ endTime = s; }
 
     public String getAmount() { return amount; }
     public void setAmount(String s) { amount = s; }

@@ -2,6 +2,7 @@ package com.example.thorm.test4;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.ListView;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,6 +36,7 @@ public class ShiftScreen extends AppCompatActivity {
     ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<>();
     final Employee CURRENT_EMPLOYEE = Employee.selectedEmployee;
     int activeJob = 0;
+    static DatePickerDialog picker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,13 +117,12 @@ public class ShiftScreen extends AppCompatActivity {
             String endTimeStr = endTime.getText().toString();
             String amountStr = amount.getText().toString();
 
-            Date dateObj;
+            Date dateObj, startTimeObj = null, endTimeObj = null;
             try { dateObj = new SimpleDateFormat("M/d/y").parse(dateStr); }
             catch (ParseException e) { return false; }
 
             if (CURRENT_EMPLOYEE.jobs.get(activeJob).getType() != Employee.JobType.AMOUNT) {
-                String match = "\\s*([1-9]|10|11|12)(\\:[0-5][0-9])?\\s*(am|pm|AM|PM|a\\.m\\.|p\\.m\\.|A\\.M\\.|P\\.M\\.)\\s*";
-                if (!startTimeStr.matches(match) || !endTimeStr.matches(match))
+                if ((startTimeObj = toTwentyFourHr(startTimeStr))==null || (endTimeObj = toTwentyFourHr(endTimeStr))==null)
                     return false;
             }
             else if (CURRENT_EMPLOYEE.jobs.get(activeJob).getType() != Employee.JobType.STARTEND) {
@@ -132,14 +134,41 @@ public class ShiftScreen extends AppCompatActivity {
             java.util.Calendar c = java.util.Calendar.getInstance();
             c.setTime(dateObj);
             s.setDay(c.get(java.util.Calendar.DAY_OF_WEEK)-1);
-            s.setStartTime(startTimeStr);
-            s.setEndTime(endTimeStr);
+            s.setStartTime(startTimeObj);
+            s.setEndTime(endTimeObj);
             s.setAmount(amountStr);
             s.setSaved(!s.isToDelete());
 
             index++;
         }
         return true;
+    }
+
+    public Date toTwentyFourHr(String time) {
+        if (time.equals("")) return null;
+        else {
+            int hour, minute, index;
+            String currStr = "";
+
+            for (index = 0; time.charAt(index) != ':'; index++)
+                currStr += time.charAt(index);
+            hour = Integer.parseInt(currStr);
+            index++;
+            currStr = "";
+            for (; time.charAt(index) != ' '; index++)
+                currStr += time.charAt(index);
+            minute = Integer.parseInt(currStr);
+            index++;
+            if (time.charAt(index) == 'P' && hour != 12)
+                hour += 12;
+            if (time.charAt(index) == 'A' && hour == 12)
+                hour = 0;
+
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.HOUR_OF_DAY, hour);
+            c.set(Calendar.MINUTE, minute);
+            return c.getTime();
+        }
     }
 
     public void deleteShift(View view) {
@@ -162,6 +191,7 @@ public class ShiftScreen extends AppCompatActivity {
                 c.setTime(d);
         }
         catch (ParseException e) {}
+
         DatePickerDialog picker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -200,6 +230,30 @@ public class ShiftScreen extends AppCompatActivity {
                     });
             builder.create().show();
         }
+    }
+
+    public void timeClick(View view) {
+        final EditText timeText = (EditText) view;
+        final Calendar c = Calendar.getInstance();
+        Date d = toTwentyFourHr(timeText.getText().toString());
+        if (d != null)
+            c.setTime(d);
+        else {
+            c.set(Calendar.HOUR_OF_DAY, 0);
+            c.set(Calendar.MINUTE, 0);
+        }
+
+        TimePickerDialog dialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                c.set(Calendar.HOUR_OF_DAY, hour);
+                c.set(Calendar.MINUTE, minute);
+                Date d = c.getTime();
+
+                timeText.setText(ShiftArrayAdapter.toTwelveHr(d));
+            }
+        }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),false);
+        dialog.show();
     }
 
     @Override

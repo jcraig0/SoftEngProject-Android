@@ -41,7 +41,6 @@
                 app:fabSize="mini"
                 app:srcCompat="@android:drawable/ic_menu_delete"
                 app:elevation="0dp"
-                android:focusable="false"
                 android:onClick="deleteShift" />
 
         </LinearLayout>
@@ -132,9 +131,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Start Time"
-                android:nextFocusDown="@+id/endTime"
                 android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:focusable="false"
+                android:onClick="timeClick" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -152,7 +152,9 @@
                 android:layout_weight="1"
                 android:hint="End Time"
                 android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:focusable="false"
+                android:onClick="timeClick" />
         </LinearLayout>
 
         <LinearLayout
@@ -169,7 +171,8 @@
                 android:hint="Amount"
                 android:inputType="numberDecimal"
                 android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:imeOptions="actionDone" />
 
             <TextView
                 android:id="@+id/unit"

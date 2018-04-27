@@ -30,7 +30,6 @@ public class EmployeeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_test4_2);
         setTitle("Employee List");
 
-        Employer.createEmployerList();
         currentEmployer = Employer.employer;
         employees = makeAdapter(currentEmployer.employees);
 
@@ -144,6 +143,11 @@ public class EmployeeScreen extends AppCompatActivity {
             }
         });
         builder.create().show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, LogInScreen.class));
     }
 
 }

@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
     Employee.Job job;
@@ -88,12 +90,36 @@ public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
             date.setText(new SimpleDateFormat("M/d/y").format(s.getDate()));
             days.check(days.getChildAt(s.getDay()).getId());
         }
-        startTime.setText(s.getStartTime());
-        endTime.setText(s.getEndTime());
+        if (s.getStartTime() != null)
+            startTime.setText(toTwelveHr(s.getStartTime()));
+        if (s.getEndTime() != null)
+            endTime.setText(toTwelveHr(s.getEndTime()));
         amount.setText(s.getAmount());
         unit.setText(job.getUnit());
 
         return true;
+    }
+
+    static public String toTwelveHr(Date time) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(time);
+
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+        String hourType, minuteStr;
+        if (hour >= 12) {
+            if (hour > 12) hour -= 12;
+            hourType = "PM";
+        }
+        else {
+            if (hour == 0) hour = 12;
+            hourType = "AM";
+        }
+        minuteStr = Integer.toString(minute);
+        if (minute < 10)
+            minuteStr = "0" + minuteStr;
+
+        return String.format("%d:%s %s", hour, minuteStr, hourType);
     }
 
 }
