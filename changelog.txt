@@ -54,3 +54,6 @@ Allowed day buttons to check themselves when date changed. Changed day abbreviat
 
 4/25/2018
 Replaced date text entry with a DatePickerDialog. Fixed alignment of logo in log-in screen.
+
+4/27/2018
+Allowed both start/end time and amount in same shift. Fixed time regex checking.
