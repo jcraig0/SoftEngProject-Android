@@ -47,4 +47,12 @@ public class AboutScreen extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        if (parentActivity == 0)
+            startActivity(new Intent(this, EmployeeScreen.class));
+        else
+            startActivity(new Intent(this, ShiftScreen.class));
+    }
 }
