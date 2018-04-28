@@ -3,20 +3,13 @@ package com.example.thorm.test4;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Employer {
 
-<<<<<<< HEAD
-    public static Employer employer;
-=======
-
     public static Employer currentEmployer;
-
->>>>>>> ICH-Brarnch
     String NAME;
     String ID;
     ArrayList<Employee> employees = new ArrayList<>();
@@ -30,7 +23,6 @@ public class Employer {
     }
 
     public Employee getEmployeeByID(String id){
-
         for (int i = 0; i < this.employees.size(); i++){
             Employee e = this.employees.get(i);
             if (e.getID().equals(id)){
@@ -40,11 +32,6 @@ public class Employer {
         return null;
     }
 
-<<<<<<< HEAD
-    public static void createEmployerList(){
-        Employer cos420 = new Employer("COS420");
-        employer = cos420;
-=======
     public static void createEmployerList(JSONArray jArray){
         Employer temp = new Employer("ThisEmployer");
         currentEmployer = temp;
@@ -62,8 +49,6 @@ public class Employer {
         }
     }
 
->>>>>>> ICH-Brarnch
-
 /*
     public static void createTestEmployerList(){
 
@@ -79,12 +64,12 @@ public class Employer {
         cos420.getEmployeeByID("0").jobs.get(1).shifts.add(new EmployeeShift("2018-04-10", null, null, "3.33"));
         cos420.getEmployeeByID("!").jobs.get(0).shifts.add(new EmployeeShift("2018-04-11", "08:00:00", "12:00:00", null));
     }
-
+*/
     public static void refreshEmployerList() {
         Employer newEmployer = new Employer("COS420");
 
-        for (Employee e : employer.employees) {
-            newEmployer.addEmployee(new Employee(e.getName(), e.getID(), e.getActive()));
+        for (Employee e : currentEmployer.employees) {
+            newEmployer.addEmployee(new Employee(e.getData()));
             Employee newE = newEmployer.getEmployeeByID(e.getID());
             for (Employee.Job j : e.jobs) {
                 newE.addJob(j.getName(), j.getUnit(), j.getType());
@@ -96,7 +81,7 @@ public class Employer {
             }
         }
 
-        employer = newEmployer;
+        currentEmployer = newEmployer;
     }
 
     static public String dateToStr(Date s, boolean date) {
@@ -110,5 +95,5 @@ public class Employer {
         }
         else return null;
     }
-*/
+
 }

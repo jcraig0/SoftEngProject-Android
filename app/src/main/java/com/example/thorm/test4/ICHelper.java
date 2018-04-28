@@ -1,7 +1,6 @@
 package com.example.thorm.test4;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -15,11 +14,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 

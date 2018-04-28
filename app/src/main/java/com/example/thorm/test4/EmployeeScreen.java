@@ -21,11 +21,7 @@ import java.util.HashSet;
 
 public class EmployeeScreen extends AppCompatActivity {
 
-<<<<<<< HEAD:app/src/main/java/com/example/thorm/test4/EmployeeScreen.java
     Employer currentEmployer;
-=======
-    final Employer currentEmployer = Employer.currentEmployer;
->>>>>>> ICH-Brarnch:app/src/main/java/com/example/thorm/test4/Test4_2.java
     ArrayList<Employee> employees;
     static int currentFilter = 0;
 
@@ -36,7 +32,7 @@ public class EmployeeScreen extends AppCompatActivity {
         setTitle("Employee List");
 
         Employer.refreshEmployerList();
-        currentEmployer = Employer.employer;
+        currentEmployer = Employer.currentEmployer;
         runFilter(currentFilter);
 
         final ListView employeeList = findViewById(R.id.employeeLV);

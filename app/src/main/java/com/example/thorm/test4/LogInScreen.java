@@ -1,43 +1,101 @@
 package com.example.thorm.test4;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 public class LogInScreen extends AppCompatActivity {
 
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Intent intent = new Intent(this, EmployeeScreen.class);
+        ICHelper.ICH = new ICHelper(this);
 
-        final String username = "1", password = "2";
+        intent = new Intent(this, EmployeeScreen.class);
         findViewById(R.id.oops).setVisibility(View.INVISIBLE);
 
         Button loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String usernameText = ((EditText) findViewById(R.id.usernameET)).getText().toString();
-                String passwordText = ((EditText) findViewById(R.id.passwordET)).getText().toString();
 
-                if (usernameText.equals(username) && passwordText.equals(password)) {
-                    Employer.createEmployerList();
-                    startActivity(intent);
-                    findViewById(R.id.oops).setVisibility(View.INVISIBLE);
-                }
-                else
-                    findViewById(R.id.oops).setVisibility(View.VISIBLE);
+                String userName = ((EditText) findViewById(R.id.usernameET)).getText().toString();
+                String password = ((EditText) findViewById(R.id.passwordET)).getText().toString();
+
+                ICHelper.ICH.loginRequest(userName, password);
+
+                AsyncTaskRunner runner = new AsyncTaskRunner();
+                runner.execute("10");
+        }});
+    }
+
+    public void waitForResponse(){
+        // If successful
+        Employer.createEmployerList(ICHelper.employeeJArray.getValue());
+        startActivity(intent);
+        // If unsuccessful
+        // findViewById(R.id.oops).setVisibility(View.VISIBLE);
+    }
+
+    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
+
+        private String resp;
+        ProgressDialog progressDialog;
+
+        @Override
+        protected String doInBackground(String... params) {
+            publishProgress("Sleeping..."); // Calls onProgressUpdate()
+            try {
+                int time = Integer.parseInt(params[0])*1000;
+
+                Thread.sleep(time);
+                resp = "Slept for " + params[0] + " seconds";
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                resp = e.getMessage();
+            } catch (Exception e) {
+                e.printStackTrace();
+                resp = e.getMessage();
             }
-        });
+            return resp;
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            // execution of result of Long time consuming operation
+            progressDialog.dismiss();
+
+            waitForResponse();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(LogInScreen.this,
+                    "ProgressDialog",
+                    "Logging in. Please wait...");
+        }
+
+
+        @Override
+        protected void onProgressUpdate(String... text) {
+            Log.d("WaitTime" ,text[0]);
+
+        }
+
     }
 
     @Override
     public void onBackPressed() {}
 
 }
+

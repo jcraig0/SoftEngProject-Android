@@ -31,10 +31,8 @@ public class Employee {
 
     public static Employee selectedEmployee = null;
 
-
     ArrayList<Job> jobs = new ArrayList<>();
     ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<>();
-
 
     private JSONObject employeeData;
 
@@ -75,6 +73,8 @@ public class Employee {
             return false;
         }
     }
+
+    public JSONObject getData() { return employeeData; }
 
     public void addJob(String name, String unit, JobType type) {
         this.jobs.add(new Job(name, unit, type));
