@@ -60,3 +60,6 @@ Allowed both start/end time and amount in same shift. Fixed employee info not sa
 
 4/27/2018 5:33 PM
 Replaced time text entry with a TimePickerDialog. Fixed back button behavior on employee screen. Disabled nextFocus for amount textbox (fixing text entry flow bug).
+
+4/28/2018 10:22 AM
+Fixed shift dialogs not opening when same shift list is loaded again. Made back button behavior for rest of screens. Saved employee filter when moving to other activities. Minor changes to About screen transitions.
