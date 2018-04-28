@@ -63,3 +63,6 @@ Replaced time text entry with a TimePickerDialog. Fixed back button behavior on 
 
 4/28/2018 10:22 AM
 Fixed shift dialogs not opening when same shift list is loaded again. Made back button behavior for rest of screens. Saved employee filter when moving to other activities. Minor changes to About screen transitions.
+
+4/28/2018 11:56 AM
+Implemented JSON requests for authentication and employee data.
