@@ -1,6 +1,8 @@
 package com.example.thorm.test4;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Employer {
 
@@ -50,6 +52,37 @@ public class Employer {
         cos420.getEmployeeByID("0").jobs.get(0).shifts.add(new EmployeeShift("2018-04-09", "09:00:00", "17:00:00", "3.33"));
         cos420.getEmployeeByID("0").jobs.get(1).shifts.add(new EmployeeShift("2018-04-10", null, null, "3.33"));
         cos420.getEmployeeByID("!").jobs.get(0).shifts.add(new EmployeeShift("2018-04-11", "08:00:00", "12:00:00", null));
+    }
+
+    public static void refreshEmployerList() {
+        Employer newEmployer = new Employer("COS420");
+
+        for (Employee e : employer.employees) {
+            newEmployer.addEmployee(new Employee(e.getName(), e.getID(), e.getActive()));
+            Employee newE = newEmployer.getEmployeeByID(e.getID());
+            for (Employee.Job j : e.jobs) {
+                newE.addJob(j.getName(), j.getUnit(), j.getType());
+                Employee.Job newJ = newE.jobs.get(newE.jobs.size()-1);
+                for (EmployeeShift s : j.shifts) {
+                    newJ.shifts.add(new EmployeeShift(dateToStr(s.getDate(),true), dateToStr(s.getStartTime(),false),
+                                    dateToStr(s.getEndTime(), false), s.getAmount()));
+                }
+            }
+        }
+
+        employer = newEmployer;
+    }
+
+    static public String dateToStr(Date s, boolean date) {
+        if (s != null) {
+            SimpleDateFormat f;
+            if (date)
+                f = new SimpleDateFormat("yyyy-MM-dd");
+            else
+                f = new SimpleDateFormat("HH:mm:ss");
+            return f.format(s);
+        }
+        else return null;
     }
 
 }

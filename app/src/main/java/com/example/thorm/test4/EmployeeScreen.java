@@ -23,6 +23,7 @@ public class EmployeeScreen extends AppCompatActivity {
 
     Employer currentEmployer;
     ArrayList<Employee> employees;
+    static int currentFilter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,9 @@ public class EmployeeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_test4_2);
         setTitle("Employee List");
 
+        Employer.refreshEmployerList();
         currentEmployer = Employer.employer;
-        employees = makeAdapter(currentEmployer.employees);
+        runFilter(currentFilter);
 
         final ListView employeeList = findViewById(R.id.employeeLV);
         employeeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -82,23 +84,7 @@ public class EmployeeScreen extends AppCompatActivity {
                        .setItems(orders, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        switch (i) {
-                            case 0:
-                                employees = makeAdapter(currentEmployer.employees);
-                                break;
-                            case 1:
-                                ArrayList<Employee> newList = new ArrayList<>(currentEmployer.employees);
-                                for (int j=0; j < newList.size(); j++) {
-                                    Employee e = newList.get(j);
-                                    if (!e.getActive()) {
-                                        newList.remove(e); j--; }
-                                }
-                                employees = makeAdapter(newList);
-                                break;
-                            case 2:
-                                filterByJob();
-                                break;
-                        }
+                        runFilter(currentFilter = i);
                     }
                 });
                 builder.create().show();
@@ -107,6 +93,7 @@ public class EmployeeScreen extends AppCompatActivity {
                 startActivity(new Intent(this, LogInScreen.class));
                 return true;
             case R.id.about:
+                AboutScreen.parentActivity = 0;
                 startActivity(new Intent(this, AboutScreen.class));
                 return true;
             default:
@@ -114,35 +101,48 @@ public class EmployeeScreen extends AppCompatActivity {
         }
     }
 
-    public void filterByJob() {
-        HashSet<String> allJobs = new HashSet<String>();
-        for (Employee e : currentEmployer.employees) {
-            for (Employee.Job j : e.jobs)
-                allJobs.add(j.getName());
-        }
-        final String[] jobs = allJobs.toArray(new String[0]);
-        Arrays.sort(jobs);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Choose Job Name").setItems(jobs, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                ArrayList<Employee> newList = new ArrayList<>(currentEmployer.employees);
-                String choice = jobs[i];
-                for (int j=0; j < newList.size(); j++) {
-                    Employee e = newList.get(j);
-                    boolean present = false;
-                    for (Employee.Job k : e.jobs) {
-                        if (k.getName().equals(choice))
-                            present = true;
-                    }
-                    if (!present) {
-                        newList.remove(e); j--; }
-                }
-                employees = makeAdapter(newList);
+    public void runFilter(int type) {
+        if (type == 0)
+            employees = makeAdapter(currentEmployer.employees);
+        else if (type == 1) {
+            ArrayList<Employee> newList = new ArrayList<>(currentEmployer.employees);
+            for (int j=0; j < newList.size(); j++) {
+                Employee e = newList.get(j);
+                if (!e.getActive()) {
+                    newList.remove(e); j--; }
             }
-        });
-        builder.create().show();
+            employees = makeAdapter(newList);
+        }
+        else if (type == 2) {
+            HashSet<String> allJobs = new HashSet<String>();
+            for (Employee e : currentEmployer.employees) {
+                for (Employee.Job j : e.jobs)
+                    allJobs.add(j.getName());
+            }
+            final String[] jobs = allJobs.toArray(new String[0]);
+            Arrays.sort(jobs);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Choose Job Name").setItems(jobs, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    ArrayList<Employee> newList = new ArrayList<>(currentEmployer.employees);
+                    String choice = jobs[i];
+                    for (int j=0; j < newList.size(); j++) {
+                        Employee e = newList.get(j);
+                        boolean present = false;
+                        for (Employee.Job k : e.jobs) {
+                            if (k.getName().equals(choice))
+                                present = true;
+                        }
+                        if (!present) {
+                            newList.remove(e); j--; }
+                    }
+                    employees = makeAdapter(newList);
+                }
+            });
+            builder.create().show();
+        }
     }
 
     @Override

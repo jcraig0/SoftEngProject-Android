@@ -42,7 +42,6 @@ public class ShiftScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         setTitle(CURRENT_EMPLOYEE.getName());
 
         jobsAdapterList = CURRENT_EMPLOYEE.jobsAdapterList;
@@ -105,39 +104,43 @@ public class ShiftScreen extends AppCompatActivity {
     public boolean writeShiftInfo() {
         int index = 0;
         for (EmployeeShift s : jobsAdapterList.get(activeJob).shifts) {
-            View child = shiftsLV.getChildAt(index);
-            EditText date = child.findViewById(R.id.date);
-            EditText startTime = child.findViewById(R.id.startTime);
-            EditText endTime = child.findViewById(R.id.endTime);
-            EditText amount = child.findViewById(R.id.amount);
+            if (!s.isToDelete()) {
+                View child = shiftsLV.getChildAt(index);
+                EditText date = child.findViewById(R.id.date);
+                EditText startTime = child.findViewById(R.id.startTime);
+                EditText endTime = child.findViewById(R.id.endTime);
+                EditText amount = child.findViewById(R.id.amount);
 
-            String dateStr = date.getText().toString();
-            String startTimeStr = startTime.getText().toString();
-            String endTimeStr = endTime.getText().toString();
-            String amountStr = amount.getText().toString();
+                String dateStr = date.getText().toString();
+                String startTimeStr = startTime.getText().toString();
+                String endTimeStr = endTime.getText().toString();
+                String amountStr = amount.getText().toString();
 
-            Date dateObj, startTimeObj = null, endTimeObj = null;
-            try { dateObj = new SimpleDateFormat("M/d/y").parse(dateStr); }
-            catch (ParseException e) { return false; }
+                Date dateObj, startTimeObj = null, endTimeObj = null;
+                try { dateObj = new SimpleDateFormat("M/d/y").parse(dateStr); }
+                catch (ParseException e) { return false; }
 
-            if (CURRENT_EMPLOYEE.jobs.get(activeJob).getType() != Employee.JobType.AMOUNT) {
-                if ((startTimeObj = toTwentyFourHr(startTimeStr))==null || (endTimeObj = toTwentyFourHr(endTimeStr))==null)
-                    return false;
+                if (CURRENT_EMPLOYEE.jobs.get(activeJob).getType() != Employee.JobType.AMOUNT) {
+                    if ((startTimeObj = toTwentyFourHr(startTimeStr))==null || (endTimeObj = toTwentyFourHr(endTimeStr))==null)
+                        return false;
+                }
+                else if (CURRENT_EMPLOYEE.jobs.get(activeJob).getType() != Employee.JobType.STARTEND) {
+                    if (Double.parseDouble(amountStr) <= 0)
+                        return false;
+                }
+
+                s.setDate(dateObj);
+                java.util.Calendar c = java.util.Calendar.getInstance();
+                c.setTime(dateObj);
+                s.setDay(c.get(java.util.Calendar.DAY_OF_WEEK)-1);
+                s.setStartTime(startTimeObj);
+                s.setEndTime(endTimeObj);
+                s.setAmount(amountStr);
             }
-            else if (CURRENT_EMPLOYEE.jobs.get(activeJob).getType() != Employee.JobType.STARTEND) {
-                if (Double.parseDouble(amountStr) <= 0)
-                    return false;
-            }
+            else
+                CURRENT_EMPLOYEE.jobs.get(activeJob).shifts.remove(s);
 
-            s.setDate(dateObj);
-            java.util.Calendar c = java.util.Calendar.getInstance();
-            c.setTime(dateObj);
-            s.setDay(c.get(java.util.Calendar.DAY_OF_WEEK)-1);
-            s.setStartTime(startTimeObj);
-            s.setEndTime(endTimeObj);
-            s.setAmount(amountStr);
             s.setSaved(!s.isToDelete());
-
             index++;
         }
         return true;
@@ -277,11 +280,17 @@ public class ShiftScreen extends AppCompatActivity {
                 startActivity(new Intent(this, LogInScreen.class));
                 return true;
             case R.id.about:
+                AboutScreen.parentActivity = 1;
                 startActivity(new Intent(this, AboutScreen.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, EmployeeScreen.class));
     }
 
 }

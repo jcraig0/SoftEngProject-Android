@@ -8,6 +8,8 @@ import android.view.MenuItem;
 
 public class AboutScreen extends AppCompatActivity {
 
+    static int parentActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,10 @@ public class AboutScreen extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                if (parentActivity == 0)
+                    startActivity(new Intent(this, EmployeeScreen.class));
+                else
+                    startActivity(new Intent(this, ShiftScreen.class));
                 return true;
             case R.id.signout:
                 startActivity(new Intent(this, LogInScreen.class));
