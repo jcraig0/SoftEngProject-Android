@@ -4,6 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Employer {
 
 <<<<<<< HEAD
@@ -40,13 +44,28 @@ public class Employer {
     public static void createEmployerList(){
         Employer cos420 = new Employer("COS420");
         employer = cos420;
+=======
+    public static void createEmployerList(JSONArray jArray){
+        Employer temp = new Employer("ThisEmployer");
+        currentEmployer = temp;
 
-        cos420.addEmployee(new Employee("Justin", "0", true));
-        cos420.addEmployee(new Employee("Aaron", "1", true));
-        cos420.addEmployee(new Employee("Tim","spaceman", true));
-        cos420.addEmployee(new Employee("Jovon", "2", false));
-        cos420.addEmployee(new Employee("Tim","tim", false));
-        cos420.addEmployee(new Employee("Patrick","!", false));
+        for (int i = 0; i < jArray.length(); i++){
+
+            try {
+
+                JSONObject curr = jArray.getJSONObject(i);
+                temp.addEmployee(new Employee((curr)));
+
+            }catch(JSONException e){
+                temp.addEmployee(new Employee(null));
+            }
+        }
+    }
+
+>>>>>>> ICH-Brarnch
+
+/*
+    public static void createTestEmployerList(){
 
         cos420.getEmployeeByID("0").addJob("Project Manager", "hours", Employee.JobType.BOTH);
         cos420.getEmployeeByID("0").addJob("API Builder", "hours", Employee.JobType.AMOUNT);

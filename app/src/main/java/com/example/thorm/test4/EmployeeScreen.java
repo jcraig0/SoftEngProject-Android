@@ -21,6 +21,7 @@ import java.util.HashSet;
 
 public class EmployeeScreen extends AppCompatActivity {
 
+<<<<<<< HEAD:app/src/main/java/com/example/thorm/test4/EmployeeScreen.java
     Employer currentEmployer;
 =======
     final Employer currentEmployer = Employer.currentEmployer;
