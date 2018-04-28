@@ -22,6 +22,9 @@ import java.util.HashSet;
 public class EmployeeScreen extends AppCompatActivity {
 
     Employer currentEmployer;
+=======
+    final Employer currentEmployer = Employer.currentEmployer;
+>>>>>>> ICH-Brarnch:app/src/main/java/com/example/thorm/test4/Test4_2.java
     ArrayList<Employee> employees;
     static int currentFilter = 0;
 
@@ -58,7 +61,7 @@ public class EmployeeScreen extends AppCompatActivity {
         for (Employee e : sorted) {
             HashMap<String,String> item = new HashMap<>();
             item.put("line1", e.getName());
-            item.put("line2", "ID: "+e.getID());
+            item.put("line2", "ID: "+ e.getID());
             hash.add(item);
         }
 

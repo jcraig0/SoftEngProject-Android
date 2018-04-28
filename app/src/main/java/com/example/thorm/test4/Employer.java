@@ -6,7 +6,13 @@ import java.util.Date;
 
 public class Employer {
 
+<<<<<<< HEAD
     public static Employer employer;
+=======
+
+    public static Employer currentEmployer;
+
+>>>>>>> ICH-Brarnch
     String NAME;
     String ID;
     ArrayList<Employee> employees = new ArrayList<>();
@@ -30,6 +36,7 @@ public class Employer {
         return null;
     }
 
+<<<<<<< HEAD
     public static void createEmployerList(){
         Employer cos420 = new Employer("COS420");
         employer = cos420;
@@ -84,5 +91,5 @@ public class Employer {
         }
         else return null;
     }
-
+*/
 }
