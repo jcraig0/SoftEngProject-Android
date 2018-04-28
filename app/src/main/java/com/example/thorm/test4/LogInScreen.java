@@ -36,4 +36,8 @@ public class LogInScreen extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {}
+
 }
