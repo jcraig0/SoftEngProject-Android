@@ -81,10 +81,9 @@ public class LogInScreen extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             progressDialog = ProgressDialog.show(LogInScreen.this,
-                    "ProgressDialog",
+                    "Authenticating",
                     "Logging in. Please wait...");
         }
-
 
         @Override
         protected void onProgressUpdate(String... text) {
