@@ -69,7 +69,6 @@ public class LogInScreen extends AppCompatActivity {
             return resp;
         }
 
-
         @Override
         protected void onPostExecute(String result) {
             // execution of result of Long time consuming operation

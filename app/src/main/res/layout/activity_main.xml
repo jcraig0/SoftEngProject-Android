@@ -77,7 +77,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="42dp"
-        android:backgroundTint="#009000"
+        android:backgroundTint="#4040FF"
         android:text="Login"
         android:textAlignment="center"
         android:textSize="18sp"
