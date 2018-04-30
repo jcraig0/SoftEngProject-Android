@@ -69,3 +69,6 @@ Implemented JSON requests for authentication and employee data.
 
 4/29/2018
 Changed title of progress dialog. Moved Employee JSON parsing to constructor.
+
+4/30/2018
+Updated logo and changed color scheme to light blue.
