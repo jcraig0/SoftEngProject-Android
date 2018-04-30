@@ -67,8 +67,5 @@ Fixed shift dialogs not opening when same shift list is loaded again. Made back 
 4/28/2018 11:56 AM
 Implemented JSON requests for authentication and employee data.
 
-4/29/2018
-Changed title of authentication progress dialog.
-
 4/30/2018
 Updated logo and changed color scheme to light blue.
