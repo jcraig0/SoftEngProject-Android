@@ -40,34 +40,44 @@ public class Employee {
     ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<>();
 
     public Employee(JSONObject j){
-        if (j == null)
-            employeeData = null;
-        else
-            employeeData = j;
-
-        if (employeeData != null) {
-            try {
-                name = String.format("%s %s %s", employeeData.get("firstname").toString(),
-                        employeeData.get("middlename").toString(), employeeData.get("lastname").toString());
-            }catch(JSONException e){}
-
-            try {
-                ID = employeeData.get("employer_employee_ID").toString();
-            }catch(JSONException e){}
-
-            try {
-                String temp = employeeData.get("active").toString();
-                if (temp.equals("Active"))
-                    active = true;
-                else
-                    active = false;
-            }catch(JSONException e){}
+        if (j == null){
+            this.employeeData = null;
+        }else {
+            this.employeeData = j;
         }
     }
 
-    public String getName() { return name; }
-    public String getID() { return ID; }
-    public boolean getActive() { return active; }
+    public String getName() {
+        try {
+            String name = String.format("%s %s %s", employeeData.get("firstname").toString(),
+                    employeeData.get("middlename").toString(), employeeData.get("lastname").toString());
+            return name;
+        }catch(JSONException e){
+            return "Error";
+        }
+    }
+
+    public String getID() {
+        try {
+            return employeeData.get("employer_employee_ID").toString();
+        }catch(JSONException e){
+            return "Error";
+        }
+    }
+
+    public boolean getActive() {
+        try {
+            String temp = employeeData.get("active").toString();
+            if (temp.equals("Active")){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(JSONException e){
+            return false;
+        }
+    }
+
     public JSONObject getData() { return employeeData; }
 
     public void addJob(String name, String unit, JobType type) {
