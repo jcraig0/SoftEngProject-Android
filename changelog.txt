@@ -69,3 +69,6 @@ Implemented JSON requests for authentication and employee data.
 
 4/30/2018
 Updated logo and changed color scheme to light blue.
+
+5/1/2018
+Implemented JSON requests for job and shift data. Fixed job filter dialog opening when returning to employee screen. Fixed middle name parsing.
