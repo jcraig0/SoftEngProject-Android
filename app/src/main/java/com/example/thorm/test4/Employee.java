@@ -12,21 +12,51 @@ public class Employee {
     }
 
     public class Job {
-        private String name;
-        private String unit;
-        private JobType type;
+        JobType type;
+        JSONObject Data;
         ArrayList<EmployeeShift> shifts;
 
-        public Job(String name, String unit, JobType type) {
-            this.name = name;
-            this.unit = unit;
-            this.type = type;
-            shifts = new ArrayList<>();
+        public Job(JSONObject d) {
+            this.Data = d;
+            shifts = new ArrayList<EmployeeShift>();
+
+            try {
+                if (Data.get("UOM").toString().equals("dollars")){
+                    type = JobType.AMOUNT;
+                }else{
+                    type = JobType.STARTEND;
+                }
+            }catch(JSONException e){
+                e.printStackTrace();
+            }
+        }
+        public String getName() {
+            try {
+                return this.Data.get("title").toString();
+            }catch(JSONException e){
+                return "Error";
+            }
         }
 
-        public String getName() { return name; }
-        public String getUnit() { return unit; }
-        public JobType getType() { return type; }
+        public String getUnit() {
+            try {
+                return this.Data.get("UOM").toString();
+            }catch(JSONException e){
+                return "Error";
+            }
+        }
+
+        public JobType getType() {
+            return type;
+        }
+
+        public String getID(){
+            try{
+                return this.Data.get("job_id").toString();
+            }catch(JSONException e){
+                return "Error";
+            }
+        }
     }
 
     public static Employee selectedEmployee = null;
@@ -65,6 +95,16 @@ public class Employee {
         }
     }
 
+<<<<<<< HEAD
+=======
+    public String getEmployeeID(){
+        try{
+            return employeeData.get("employee_id").toString();
+        }catch(JSONException e){
+            return "Error";
+        }
+    }
+>>>>>>> MVP-Branch
     public boolean getActive() {
         try {
             String temp = employeeData.get("active").toString();
@@ -80,8 +120,12 @@ public class Employee {
 
     public JSONObject getData() { return employeeData; }
 
-    public void addJob(String name, String unit, JobType type) {
-        this.jobs.add(new Job(name, unit, type));
+    public void addJob(JSONObject job) {
+        this.jobs.add(new Job(job));
+    }
+
+    public Job getJobAt(int x){
+        return this.jobs.get(x);
     }
 
 }

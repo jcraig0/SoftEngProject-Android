@@ -1,5 +1,7 @@
 package com.example.thorm.test4;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +38,10 @@ public class Employer {
         Employer temp = new Employer("ThisEmployer");
         currentEmployer = temp;
 
+        if (jArray == null){
+            Log.d("ERROR", "SO Shit went bad");
+            return;
+        }
         for (int i = 0; i < jArray.length(); i++){
 
             try {
@@ -72,7 +78,7 @@ public class Employer {
             newEmployer.addEmployee(new Employee(e.getData()));
             Employee newE = newEmployer.getEmployeeByID(e.getID());
             for (Employee.Job j : e.jobs) {
-                newE.addJob(j.getName(), j.getUnit(), j.getType());
+                newE.addJob(j.Data);
                 Employee.Job newJ = newE.jobs.get(newE.jobs.size()-1);
                 for (EmployeeShift s : j.shifts) {
                     newJ.shifts.add(new EmployeeShift(dateToStr(s.getDate(),true), dateToStr(s.getStartTime(),false),

@@ -31,32 +31,22 @@ public class LogInScreen extends AppCompatActivity {
                 String userName = ((EditText) findViewById(R.id.usernameET)).getText().toString();
                 String password = ((EditText) findViewById(R.id.passwordET)).getText().toString();
 
-                ICHelper.ICH.loginRequest(userName, password);
+                ICHelper.ICH.loginRequest("SlartyBartfish", "Swordfish");
 
                 AsyncTaskRunner runner = new AsyncTaskRunner();
-                runner.execute("10");
+                runner.execute("5");
         }});
     }
 
-    public void waitForResponse(){
-        // If successful
-        Employer.createEmployerList(ICHelper.employeeJArray.getValue());
-        startActivity(intent);
-        // If unsuccessful
-        // findViewById(R.id.oops).setVisibility(View.VISIBLE);
-    }
 
     private class AsyncTaskRunner extends AsyncTask<String, String, String> {
-
         private String resp;
         ProgressDialog progressDialog;
-
         @Override
         protected String doInBackground(String... params) {
             publishProgress("Sleeping..."); // Calls onProgressUpdate()
             try {
                 int time = Integer.parseInt(params[0])*1000;
-
                 Thread.sleep(time);
                 resp = "Slept for " + params[0] + " seconds";
             } catch (InterruptedException e) {
@@ -68,28 +58,35 @@ public class LogInScreen extends AppCompatActivity {
             }
             return resp;
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> MVP-Branch
         @Override
         protected void onPostExecute(String result) {
             // execution of result of Long time consuming operation
             progressDialog.dismiss();
-
-            waitForResponse();
+            Employer.createEmployerList(ICHelper.employeeJArray.getValue());
+            startActivity(intent);
         }
-
         @Override
         protected void onPreExecute() {
             progressDialog = ProgressDialog.show(LogInScreen.this,
+<<<<<<< HEAD
                     "Authenticating",
                     "Logging in. Please wait...");
         }
 
+=======
+                    "Login Attempt",
+                    "Logging in. Please wait...");
+        }
+>>>>>>> MVP-Branch
         @Override
         protected void onProgressUpdate(String... text) {
             Log.d("WaitTime" ,text[0]);
 
         }
-
     }
 
     @Override

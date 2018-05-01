@@ -1,10 +1,13 @@
 package com.example.thorm.test4;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,7 +43,17 @@ public class EmployeeScreen extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Employee.selectedEmployee = employees.get(position);
-                startActivity(new Intent(EmployeeScreen.this, ShiftScreen.class));
+
+                if (Employee.selectedEmployee.jobs.size() <=0) {
+                    ICHelper.getJobsFor(Employee.selectedEmployee);
+
+                    WaitForEmployeeData runner = new WaitForEmployeeData();
+                    runner.execute("5");
+                }else{
+                    startActivity(new Intent(EmployeeScreen.this, ShiftScreen.class));
+                }
+
+
             }
         });
     }
@@ -142,6 +155,43 @@ public class EmployeeScreen extends AppCompatActivity {
                 }
             });
             builder.create().show();
+        }
+    }
+
+    private class WaitForEmployeeData extends AsyncTask<String, String, String> {
+        private String resp;
+        ProgressDialog progressDialog;
+        @Override
+        protected String doInBackground(String... params) {
+            publishProgress("Sleeping..."); // Calls onProgressUpdate()
+            try {
+                int time = Integer.parseInt(params[0])*1000;
+                Thread.sleep(time);
+                resp = "Slept for " + params[0] + " seconds";
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                resp = e.getMessage();
+            } catch (Exception e) {
+                e.printStackTrace();
+                resp = e.getMessage();
+            }
+            return resp;
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            // execution of result of Long time consuming operation
+            progressDialog.dismiss();
+            startActivity(new Intent(EmployeeScreen.this, ShiftScreen.class));
+        }
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(EmployeeScreen.this,
+                    "Getting Employee Data",
+                    "Getting Employee Data. Please wait...");
+        }
+        @Override
+        protected void onProgressUpdate(String... text) {
+            Log.d("WaitTime" ,text[0]);
         }
     }
 
