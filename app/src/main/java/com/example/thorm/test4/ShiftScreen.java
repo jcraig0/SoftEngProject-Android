@@ -99,22 +99,13 @@ public class ShiftScreen extends AppCompatActivity {
                             .setAction("Action", null).show();
                 }
 
-                //Log.d("ShiftDate", CURRENT_EMPLOYEE.jobs.get(0).shifts.get(0).getStringDate());
-                //Log.d("ShiftStart", CURRENT_EMPLOYEE.jobs.get(0).shifts.get(0).getStartTimeString());
-                //Log.d("ShiftEnd", CURRENT_EMPLOYEE.jobs.get(0).shifts.get(0).getEndTimeString());
-
-                for(int i = 0; i < CURRENT_EMPLOYEE.jobs.size(); i++){
-                    Log.d("JOBS", String.valueOf(i));
-                    Employee.Job job = CURRENT_EMPLOYEE.jobs.get(i);
-
-                    if (job.shifts.size() >= 0){
-                        for( int j = 0; j < job.shifts.size(); j++){
-                            Log.d("SHIFTS", String.valueOf(j));
-                            ICHelper.postHours(CURRENT_EMPLOYEE, i, j);
-                        }
+                Employee.Job job = CURRENT_EMPLOYEE.jobs.get(activeJob);
+                if (job.shifts.size() >= 0){
+                    for (int i = 0; i < job.shifts.size(); i++){
+                        Log.d("SHIFTS", String.valueOf(i));
+                        ICHelper.postHours(CURRENT_EMPLOYEE, activeJob, i);
                     }
                 }
-
             }
         });
 
