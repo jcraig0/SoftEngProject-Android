@@ -25,8 +25,7 @@ import java.util.HashSet;
 public class EmployeeScreen extends AppCompatActivity {
 
     Employer currentEmployer;
-    ArrayList<Employee> employees;
-    static int currentFilter = 0;
+    static ArrayList<Employee> currEmployees;
     static boolean firstLoad = false;
 
     @Override
@@ -37,7 +36,9 @@ public class EmployeeScreen extends AppCompatActivity {
 
         Employer.refreshEmployerList();
         currentEmployer = Employer.currentEmployer;
-        runFilter(currentFilter);
+        if (currEmployees == null)
+            currEmployees = currentEmployer.employees;
+        makeAdapter(currEmployees);
 
         for (Employee e : currentEmployer.employees) {
             if (e.jobs.size() <=0)
@@ -48,7 +49,7 @@ public class EmployeeScreen extends AppCompatActivity {
         employeeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Employee.selectedEmployee = employees.get(position);
+                Employee.selectedEmployee = currEmployees.get(position);
 
                 if (!firstLoad) {
                     WaitForEmployeeData runner = new WaitForEmployeeData();
@@ -100,7 +101,7 @@ public class EmployeeScreen extends AppCompatActivity {
                        .setItems(orders, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        runFilter(currentFilter = i);
+                        runFilter(i);
                     }
                 });
                 builder.create().show();
@@ -119,7 +120,7 @@ public class EmployeeScreen extends AppCompatActivity {
 
     public void runFilter(int type) {
         if (type == 0)
-            employees = makeAdapter(currentEmployer.employees);
+            currEmployees = makeAdapter(currentEmployer.employees);
         else if (type == 1) {
             ArrayList<Employee> newList = new ArrayList<>(currentEmployer.employees);
             for (int j=0; j < newList.size(); j++) {
@@ -127,7 +128,7 @@ public class EmployeeScreen extends AppCompatActivity {
                 if (!e.getActive()) {
                     newList.remove(e); j--; }
             }
-            employees = makeAdapter(newList);
+            currEmployees = makeAdapter(newList);
         }
         else if (type == 2) {
             HashSet<String> allJobs = new HashSet<>();
@@ -154,7 +155,7 @@ public class EmployeeScreen extends AppCompatActivity {
                         if (!present) {
                             newList.remove(e); j--; }
                     }
-                    employees = makeAdapter(newList);
+                    currEmployees = makeAdapter(newList);
                 }
             });
             builder.create().show();
