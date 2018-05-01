@@ -98,9 +98,10 @@ public class ShiftScreen extends AppCompatActivity {
                     Snackbar.make(view, "Data format error in " + CURRENT_EMPLOYEE.getName() + ", " + jobs.get(activeJob) + ".", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
-                Log.d("ShiftDate", CURRENT_EMPLOYEE.jobs.get(0).shifts.get(0).getStringDate());
-                Log.d("ShiftStart", CURRENT_EMPLOYEE.jobs.get(0).shifts.get(0).getStartTimeString());
-                Log.d("ShiftEnd", CURRENT_EMPLOYEE.jobs.get(0).shifts.get(0).getEndTimeString());
+
+                //Log.d("ShiftDate", CURRENT_EMPLOYEE.jobs.get(0).shifts.get(0).getStringDate());
+                //Log.d("ShiftStart", CURRENT_EMPLOYEE.jobs.get(0).shifts.get(0).getStartTimeString());
+                //Log.d("ShiftEnd", CURRENT_EMPLOYEE.jobs.get(0).shifts.get(0).getEndTimeString());
 
                 for(int i = 0; i < CURRENT_EMPLOYEE.jobs.size(); i++){
                     Log.d("JOBS", String.valueOf(i));

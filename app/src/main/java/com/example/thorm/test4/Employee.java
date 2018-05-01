@@ -18,7 +18,7 @@ public class Employee {
 
         public Job(JSONObject d) {
             this.Data = d;
-            shifts = new ArrayList<EmployeeShift>();
+            shifts = new ArrayList<>();
 
             try {
                 if (Data.get("UOM").toString().equals("dollars")){
@@ -61,11 +61,7 @@ public class Employee {
 
     public static Employee selectedEmployee = null;
 
-    private String name;
-    private String ID;
-    private boolean active;
     private JSONObject employeeData;
-
     ArrayList<Job> jobs = new ArrayList<>();
     ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<>();
 
@@ -79,8 +75,14 @@ public class Employee {
 
     public String getName() {
         try {
-            String name = String.format("%s %s %s", employeeData.get("firstname").toString(),
-                    employeeData.get("middlename").toString(), employeeData.get("lastname").toString());
+            String middleName = employeeData.get("middlename").toString();
+            if (middleName.equals("null"))
+                middleName = " ";
+            else
+                middleName = " "+middleName+" ";
+
+            String name = String.format("%s%s%s", employeeData.get("firstname").toString(),
+                    middleName, employeeData.get("lastname").toString());
             return name;
         }catch(JSONException e){
             return "Error";
@@ -95,8 +97,6 @@ public class Employee {
         }
     }
 
-<<<<<<< HEAD
-=======
     public String getEmployeeID(){
         try{
             return employeeData.get("employee_id").toString();
@@ -104,7 +104,7 @@ public class Employee {
             return "Error";
         }
     }
->>>>>>> MVP-Branch
+
     public boolean getActive() {
         try {
             String temp = employeeData.get("active").toString();

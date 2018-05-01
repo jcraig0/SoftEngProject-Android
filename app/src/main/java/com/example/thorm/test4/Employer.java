@@ -55,22 +55,6 @@ public class Employer {
         }
     }
 
-/*
-    public static void createTestEmployerList(){
-
-        cos420.getEmployeeByID("0").addJob("Project Manager", "hours", Employee.JobType.BOTH);
-        cos420.getEmployeeByID("0").addJob("API Builder", "hours", Employee.JobType.AMOUNT);
-        cos420.getEmployeeByID("1").addJob("iOS Dev", "dollars", Employee.JobType.AMOUNT);
-        cos420.getEmployeeByID("spaceman").addJob("Odd Jobs", "dollars", Employee.JobType.AMOUNT);
-        cos420.getEmployeeByID("2").addJob("UI & Testing", "hours", Employee.JobType.STARTEND);
-        cos420.getEmployeeByID("tim").addJob("Database", "dollars", Employee.JobType.AMOUNT);
-        cos420.getEmployeeByID("!").addJob("Android Dev", null, Employee.JobType.STARTEND);
-
-        cos420.getEmployeeByID("0").jobs.get(0).shifts.add(new EmployeeShift("2018-04-09", "09:00:00", "17:00:00", "3.33"));
-        cos420.getEmployeeByID("0").jobs.get(1).shifts.add(new EmployeeShift("2018-04-10", null, null, "3.33"));
-        cos420.getEmployeeByID("!").jobs.get(0).shifts.add(new EmployeeShift("2018-04-11", "08:00:00", "12:00:00", null));
-    }
-*/
     public static void refreshEmployerList() {
         Employer newEmployer = new Employer("COS420");
 
@@ -81,8 +65,9 @@ public class Employer {
                 newE.addJob(j.Data);
                 Employee.Job newJ = newE.jobs.get(newE.jobs.size()-1);
                 for (EmployeeShift s : j.shifts) {
-                    newJ.shifts.add(new EmployeeShift(dateToStr(s.getDate(),true), dateToStr(s.getStartTime(),false),
-                                    dateToStr(s.getEndTime(), false), s.getAmount()));
+                    if (s.isSaved())
+                        newJ.shifts.add(new EmployeeShift(dateToStr(s.getDate(),true), dateToStr(s.getStartTime(),false),
+                                dateToStr(s.getEndTime(), false), s.getAmount()));
                 }
             }
         }
