@@ -37,8 +37,8 @@ public class EmployeeScreen extends AppCompatActivity {
         Employer.refreshEmployerList();
         currentEmployer = Employer.currentEmployer;
         if (currEmployees == null)
-            currEmployees = currentEmployer.employees;
-        makeAdapter(currEmployees);
+            currEmployees = makeAdapter(currentEmployer.employees);
+        else makeAdapter(currEmployees);
 
         for (Employee e : currentEmployer.employees) {
             if (e.jobs.size() <=0)

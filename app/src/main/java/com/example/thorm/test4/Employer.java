@@ -39,7 +39,7 @@ public class Employer {
         currentEmployer = temp;
 
         if (jArray == null){
-            Log.d("ERROR", "SO Shit went bad");
+            Log.d("ERROR", "Error");
             return;
         }
         for (int i = 0; i < jArray.length(); i++){

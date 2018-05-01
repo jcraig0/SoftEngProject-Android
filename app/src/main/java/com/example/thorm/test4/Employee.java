@@ -7,12 +7,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Employee {
-    enum JobType {
-        STARTEND, AMOUNT, BOTH
-    }
 
     public class Job {
-        private JobType type;
+        private boolean isAmount;
         JSONObject data;
         ArrayList<EmployeeShift> shifts;
 
@@ -21,15 +18,12 @@ public class Employee {
             shifts = new ArrayList<>();
 
             try {
-                if (data.get("UOM").toString().equals("dollars")){
-                    type = JobType.AMOUNT;
-                }else{
-                    type = JobType.STARTEND;
-                }
+                isAmount = data.get("UOM").toString().equals("dollars");
             }catch(JSONException e){
                 e.printStackTrace();
             }
         }
+
         public String getName() {
             try {
                 return this.data.get("title").toString();
@@ -46,8 +40,8 @@ public class Employee {
             }
         }
 
-        public JobType getType() {
-            return type;
+        public boolean isAmount() {
+            return isAmount;
         }
 
         public String getID(){

@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.json.JSONArray;
+
 public class LogInScreen extends AppCompatActivity {
 
     Intent intent;
@@ -20,6 +22,7 @@ public class LogInScreen extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ICHelper.ICH = new ICHelper(this);
+        ICHelper.employeeJArray = new ICHelper.EmployeeJSONArray();
 
         intent = new Intent(this, EmployeeScreen.class);
         findViewById(R.id.oops).setVisibility(View.INVISIBLE);
@@ -32,13 +35,11 @@ public class LogInScreen extends AppCompatActivity {
                 String userName = ((EditText) findViewById(R.id.usernameET)).getText().toString();
                 String password = ((EditText) findViewById(R.id.passwordET)).getText().toString();
 
-                ICHelper.ICH.loginRequest("SlartyBartfish", "Swordfish");
-
+                ICHelper.ICH.loginRequest(userName, password);
                 AsyncTaskRunner runner = new AsyncTaskRunner();
                 runner.execute("5");
         }});
     }
-
 
     private class AsyncTaskRunner extends AsyncTask<String, String, String> {
         private String resp;
@@ -64,8 +65,14 @@ public class LogInScreen extends AppCompatActivity {
         protected void onPostExecute(String result) {
             // execution of result of Long time consuming operation
             progressDialog.dismiss();
-            Employer.createEmployerList(ICHelper.employeeJArray.getValue());
-            startActivity(intent);
+            JSONArray arrayValue = ICHelper.employeeJArray.getValue();
+            if (arrayValue == null)
+                findViewById(R.id.oops).setVisibility(View.VISIBLE);
+            else {
+                findViewById(R.id.oops).setVisibility(View.INVISIBLE);
+                Employer.createEmployerList(arrayValue);
+                startActivity(intent);
+            }
         }
         @Override
         protected void onPreExecute() {

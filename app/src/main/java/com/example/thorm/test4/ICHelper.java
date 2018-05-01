@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -92,19 +91,19 @@ public class ICHelper {
     }
 
     public static class EmployeeJSONArray{
-        public JSONArray Value = null;
+        public JSONArray value = null;
         public void setValue(JSONArray j){
-            Value = j;
+            value = j;
         }
         public JSONArray getValue(){
-            if (this.Value != null) {
-                return Value;
+            if (this.value != null) {
+                return value;
             }else{
                 return null;
             }
         }
     }
-    public static EmployeeJSONArray employeeJArray = new EmployeeJSONArray();
+    public static EmployeeJSONArray employeeJArray;
 
     public static void getEmployeeList(){
         String url = "/employees";
@@ -213,12 +212,12 @@ public class ICHelper {
                 params.put("date", s.getStringDate());
                 params.put("shift_number", String.valueOf(SHIFTNUM));
 
-                if (j.getType() == Employee.JobType.STARTEND){
+                if (!j.isAmount()){
                     params.put("start", s.getStringDate().concat(" ").concat(s.getStartTimeString()));
                     params.put("end", s.getStringDate().concat(" ").concat(s.getEndTimeString()));
-                }else if (j.getType() == Employee.JobType.AMOUNT) {
+                }else
                     params.put("quantity", s.getAmount());
-                }
+
                 Log.d("Parameters:", params.toString());
                 return params;
             }

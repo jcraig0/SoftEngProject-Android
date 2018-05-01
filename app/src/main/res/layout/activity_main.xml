@@ -78,7 +78,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="42dp"
         android:backgroundTint="#4040FF"
-        android:text="Login"
+        android:text="Log In"
         android:textAlignment="center"
         android:textSize="18sp"
         android:focusable="false"
@@ -93,10 +93,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:text="Incorrect user info"
+        android:text="Incorrect log-in info"
         android:textColor="@android:color/holo_red_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
 </android.support.constraint.ConstraintLayout>

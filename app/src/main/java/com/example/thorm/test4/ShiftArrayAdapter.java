@@ -69,9 +69,9 @@ public class ShiftArrayAdapter extends ArrayAdapter<EmployeeShift> {
 
         LinearLayout startend = convertView.findViewById(R.id.startEndRow);
         LinearLayout amount = convertView.findViewById(R.id.amountRow);
-        if (job.getType() == Employee.JobType.AMOUNT)
+        if (job.isAmount())
             startend.setVisibility(View.GONE);
-        else if (job.getType() == Employee.JobType.STARTEND)
+        else
             amount.setVisibility(View.GONE);
 
         return convertView;
