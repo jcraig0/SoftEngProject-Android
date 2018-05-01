@@ -41,16 +41,32 @@ public class EmployeeShift {
         toDelete = false;
     }
 
-    public Date getDate() { return date; }
+    public String getStringDate(){
+        return String.format("%4d-%02d-%02d", date.getYear()+1900, date.getMonth()+1, date.getDate());
+    }
+
+    public Date getDate() {
+         return date;
+    }
+
     public void setDate(Date s){ date = s; }
 
     public int getDay() { return day; }
     public void setDay(int s) { day = s; }
 
     public Date getStartTime() { return startTime; }
+
+    public String getStartTimeString(){
+        return String.format("%02d:%02d:%s", startTime.getHours(), startTime.getMinutes(), "00");
+    }
+
     public void setStartTime(Date s){ startTime = s; }
 
     public Date getEndTime() { return endTime; }
+
+    public String getEndTimeString(){
+        return String.format("%02d:%02d:%s", endTime.getHours(), endTime.getMinutes(), "00");
+    }
     public void setEndTime(Date s){ endTime = s; }
 
     public String getAmount() { return amount; }

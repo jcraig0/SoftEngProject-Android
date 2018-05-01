@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SoftEngProject-Android.iml" filepath="$PROJECT_DIR/SoftEngProject-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SoftEngProject-Android.iml" filepath="$PROJECT_DIR$/SoftEngProject-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/main.iml" filepath="$PROJECT_DIR$/main.iml" />
       <module fileurl="file://C:\Users\thorm\AndroidStudioProjects\SoftwareEngineering\SoftEngProject-Android\main.iml" filepath="C:\Users\thorm\AndroidStudioProjects\SoftwareEngineering\SoftEngProject-Android\main.iml" />
     </modules>
   </component>
