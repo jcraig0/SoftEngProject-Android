@@ -29,7 +29,7 @@ Made pay activity retain shift view by having each Employee contain a jobsAdapte
 Implemented alphabetical and reverse alphabetical sorting in the Employee screen.
 
 4/11/2018
-Modified shift layout, Employee, and EmployeeShift classes to better match project specifications. Added a delete button on the shift layout. Fixed bug where clicking on a sorted Employee entry led to the equivalent unsorted entry.
+Modified shift layout, Employee, and EmployeeShift classes to better match project specifications. Added a delete button on the shift layout. Fixed bug where clicking on a sorted Employee entry led to the corresponding unsorted entry.
 
 4/14/2018
 Added read and save functionality to pay screen. Made shift layout adapt to type of job (start/end times or amount). Fixed bug where unsaved new shifts always remained in the screen. Changed color scheme to green.  Changed first radio button from Monday to Sunday. Lowered log-in screen views slightly. 
@@ -70,5 +70,8 @@ Implemented JSON requests for authentication and employee data.
 4/30/2018
 Updated logo and changed color scheme to light blue.
 
-5/1/2018
+5/1/2018 11:11 AM
 Implemented JSON requests for job and shift data. Fixed job filter dialog opening when returning to employee screen. Fixed middle name parsing.
+
+5/1/2018 2:58 PM
+Added incorrect log-in function. Fixed sorted Employee entry click bug again. Changed some log-in screen text and alignment. Simplified JobType object.
