@@ -75,3 +75,6 @@ Implemented JSON requests for job and shift data. Fixed job filter dialog openin
 
 5/1/2018 2:58 PM
 Added incorrect log-in function. Fixed sorted Employee entry click bug again. Changed some log-in screen text and alignment. Simplified JobType object.
+
+5/1/2018 7:56 PM
+Made saving apply only to currently viewed shift. Changed some progress window text. FINISHED.
