@@ -59,10 +59,10 @@ public class Employer {
         Employer newEmployer = new Employer("COS420");
 
         for (Employee e : currentEmployer.employees) {
-            newEmployer.addEmployee(new Employee(e.getData()));
+            newEmployer.addEmployee(new Employee(e.employeeData));
             Employee newE = newEmployer.getEmployeeByID(e.getID());
             for (Employee.Job j : e.jobs) {
-                newE.addJob(j.Data);
+                newE.addJob(j.data);
                 Employee.Job newJ = newE.jobs.get(newE.jobs.size()-1);
                 for (EmployeeShift s : j.shifts) {
                     if (s.isSaved())

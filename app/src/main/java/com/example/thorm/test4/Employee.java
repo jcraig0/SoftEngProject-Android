@@ -12,16 +12,16 @@ public class Employee {
     }
 
     public class Job {
-        JobType type;
-        JSONObject Data;
+        private JobType type;
+        JSONObject data;
         ArrayList<EmployeeShift> shifts;
 
         public Job(JSONObject d) {
-            this.Data = d;
+            this.data = d;
             shifts = new ArrayList<>();
 
             try {
-                if (Data.get("UOM").toString().equals("dollars")){
+                if (data.get("UOM").toString().equals("dollars")){
                     type = JobType.AMOUNT;
                 }else{
                     type = JobType.STARTEND;
@@ -32,7 +32,7 @@ public class Employee {
         }
         public String getName() {
             try {
-                return this.Data.get("title").toString();
+                return this.data.get("title").toString();
             }catch(JSONException e){
                 return "Error";
             }
@@ -40,7 +40,7 @@ public class Employee {
 
         public String getUnit() {
             try {
-                return this.Data.get("UOM").toString();
+                return this.data.get("UOM").toString();
             }catch(JSONException e){
                 return "Error";
             }
@@ -52,7 +52,7 @@ public class Employee {
 
         public String getID(){
             try{
-                return this.Data.get("job_id").toString();
+                return this.data.get("job_id").toString();
             }catch(JSONException e){
                 return "Error";
             }
@@ -61,7 +61,7 @@ public class Employee {
 
     public static Employee selectedEmployee = null;
 
-    private JSONObject employeeData;
+    JSONObject employeeData;
     ArrayList<Job> jobs = new ArrayList<>();
     ArrayList<ShiftArrayAdapter> jobsAdapterList = new ArrayList<>();
 
@@ -117,8 +117,6 @@ public class Employee {
             return false;
         }
     }
-
-    public JSONObject getData() { return employeeData; }
 
     public void addJob(JSONObject job) {
         this.jobs.add(new Job(job));

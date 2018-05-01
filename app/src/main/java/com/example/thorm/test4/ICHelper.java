@@ -46,7 +46,7 @@ public class ICHelper {
         queue = Volley.newRequestQueue(this.context);
     }
 
-    public static boolean loginRequest(final String username, final String password){
+    public static boolean loginRequest(final String USERNAME, final String PASSWORD){
         String url = "/authenticate";
         try{
             StringRequest postRequest = new StringRequest(Request.Method.POST, baseURL.concat(url),
@@ -76,8 +76,8 @@ public class ICHelper {
                 protected Map<String, String> getParams() throws AuthFailureError
                 {
                     Map<String, String>  params = new HashMap<String, String>();
-                    params.put("username", username);
-                    params.put("password", password);
+                    params.put("username", USERNAME);
+                    params.put("password", PASSWORD);
                     return params;
                 }
             };
@@ -143,8 +143,8 @@ public class ICHelper {
         }
     }
 
-    public static void getJobsFor(final Employee employee){
-        String url = String.format("/employee/%s/jobs", employee.getID());
+    public static void getJobsFor(final Employee EMPLOYEE){
+        String url = String.format("/employee/%s/jobs", EMPLOYEE.getID());
         try{
             StringRequest getRequest = new StringRequest(Request.Method.GET, baseURL.concat(url),
                     new Response.Listener<String>()
@@ -156,7 +156,7 @@ public class ICHelper {
                                 JSONArray jArrary = j.getJSONArray("test");
                                 for (int i = 0; i < jArrary.length(); i++){
                                     JSONObject jObj = jArrary.getJSONObject(i);
-                                    employee.addJob(jObj);
+                                    EMPLOYEE.addJob(jObj);
                                 }
                             }catch(JSONException e){
                                 e.printStackTrace();
@@ -184,7 +184,7 @@ public class ICHelper {
         }
     }
 
-    public static void postHours(final Employee employee, final int jobNum, final int shiftNum){
+    public static void postHours(final Employee EMPLOYEE, final int JOBNUM, final int SHIFTNUM){
         String url = "/hours";
         StringRequest postHours = new StringRequest(Request.Method.POST, baseURL.concat(url),
                 new Response.Listener<String>()
@@ -204,14 +204,14 @@ public class ICHelper {
             @Override
             public Map<String, String> getParams() throws AuthFailureError
             {
-                Employee.Job j = employee.getJobAt(jobNum);
-                EmployeeShift s = j.shifts.get(shiftNum);
+                Employee.Job j = EMPLOYEE.getJobAt(JOBNUM);
+                EmployeeShift s = j.shifts.get(SHIFTNUM);
 
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("employee_id", employee.getEmployeeID());
+                params.put("employee_id", EMPLOYEE.getEmployeeID());
                 params.put("job_id", j.getID());
                 params.put("date", s.getStringDate());
-                params.put("shift_number", String.valueOf(shiftNum));
+                params.put("shift_number", String.valueOf(SHIFTNUM));
 
                 if (j.getType() == Employee.JobType.STARTEND){
                     params.put("start", s.getStringDate().concat(" ").concat(s.getStartTimeString()));
