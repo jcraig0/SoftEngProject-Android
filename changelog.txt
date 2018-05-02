@@ -80,4 +80,4 @@ Added incorrect log-in function. Fixed sorted Employee entry click bug again. Ch
 Made saving apply only to currently viewed shift. Changed some progress window text.
 
 5/2/2018
-Fixed bug where it did not ask server for employee data after logging in again. Fixed "Dollars" unit checking.
+Replaced PAYRR logo on log-in screen. Fixed bug where app did not ask server for employee data after logging in again. Fixed "Dollars" unit checking.
