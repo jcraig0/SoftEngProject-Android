@@ -21,7 +21,6 @@ import java.util.Map;
 public class ICHelper {
 
     public static ICHelper ICH;
-
     private static String baseURL = "https://umcos420gp.com/server/public";
 
     public static class Token{

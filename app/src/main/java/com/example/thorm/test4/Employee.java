@@ -18,7 +18,7 @@ public class Employee {
             shifts = new ArrayList<>();
 
             try {
-                isAmount = data.get("UOM").toString().equals("dollars");
+                isAmount = data.get("UOM").toString().equals("Dollars");
             }catch(JSONException e){
                 e.printStackTrace();
             }
