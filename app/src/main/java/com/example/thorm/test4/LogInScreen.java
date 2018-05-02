@@ -23,6 +23,7 @@ public class LogInScreen extends AppCompatActivity {
 
         ICHelper.ICH = new ICHelper(this);
         ICHelper.employeeJArray = new ICHelper.EmployeeJSONArray();
+        EmployeeScreen.firstLoad = false;
 
         intent = new Intent(this, EmployeeScreen.class);
         findViewById(R.id.oops).setVisibility(View.INVISIBLE);

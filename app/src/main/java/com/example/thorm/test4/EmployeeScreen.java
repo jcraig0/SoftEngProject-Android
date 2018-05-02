@@ -26,7 +26,7 @@ public class EmployeeScreen extends AppCompatActivity {
 
     Employer currentEmployer;
     static ArrayList<Employee> currEmployees;
-    static boolean firstLoad = false;
+    static boolean firstLoad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
