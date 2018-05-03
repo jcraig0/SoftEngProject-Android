@@ -62,7 +62,7 @@ Allowed both start/end time and amount in same shift. Fixed employee info not sa
 Replaced time text entry with a TimePickerDialog. Fixed back button behavior on employee screen. Disabled nextFocus for amount textbox (fixing text entry flow bug).
 
 4/28/2018 10:22 AM
-Fixed shift dialogs not opening when same shift list is loaded again. Made back button behavior for rest of screens. Saved employee filter when moving to other activities. Minor changes to About screen transitions.
+Fixed shift dialogs not opening when same shift list is loaded again. Made back button behavior for rest of screens. Minor changes to About screen transitions.
 
 4/28/2018 11:56 AM
 Implemented JSON requests for authentication and employee data.
@@ -79,5 +79,8 @@ Added incorrect log-in function. Fixed sorted Employee entry click bug again. Ch
 5/1/2018 7:56 PM
 Made saving apply only to currently viewed shift. Changed some progress window text.
 
-5/2/2018
+5/2/2018 5:48 PM
 Replaced PAYRR logo on log-in screen. Fixed bug where app did not ask server for employee data after logging in again. Fixed "Dollars" unit checking.
+
+5/2/2018 11:06 PM
+Fixed shift dialog open bug again. FINAL.
