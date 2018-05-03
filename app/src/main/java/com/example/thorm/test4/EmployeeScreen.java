@@ -25,8 +25,13 @@ import java.util.HashSet;
 public class EmployeeScreen extends AppCompatActivity {
 
     Employer currentEmployer;
+<<<<<<< HEAD
     static ArrayList<Employee> currEmployees;
     static boolean firstLoad;
+=======
+    ArrayList<Employee> employees;
+    static int currentFilter = 0;
+>>>>>>> parent of f4b020f... Finish merge
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,24 +45,22 @@ public class EmployeeScreen extends AppCompatActivity {
             currEmployees = makeAdapter(currentEmployer.employees);
         else makeAdapter(currEmployees);
 
-        for (Employee e : currentEmployer.employees) {
-            if (e.jobs.size() <=0)
-                ICHelper.getJobsFor(e);
-        }
-
         final ListView employeeList = findViewById(R.id.employeeLV);
         employeeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Employee.selectedEmployee = currEmployees.get(position);
 
-                if (!firstLoad) {
+                if (Employee.selectedEmployee.jobs.size() <=0) {
+                    ICHelper.getJobsFor(Employee.selectedEmployee);
+
                     WaitForEmployeeData runner = new WaitForEmployeeData();
                     runner.execute("5");
-                    firstLoad = true;
-                }
-                else
+                }else{
                     startActivity(new Intent(EmployeeScreen.this, ShiftScreen.class));
+                }
+
+
             }
         });
     }
@@ -131,7 +134,7 @@ public class EmployeeScreen extends AppCompatActivity {
             currEmployees = makeAdapter(newList);
         }
         else if (type == 2) {
-            HashSet<String> allJobs = new HashSet<>();
+            HashSet<String> allJobs = new HashSet<String>();
             for (Employee e : currentEmployer.employees) {
                 for (Employee.Job j : e.jobs)
                     allJobs.add(j.getName());
@@ -190,8 +193,8 @@ public class EmployeeScreen extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             progressDialog = ProgressDialog.show(EmployeeScreen.this,
-                    "Employee Data",
-                    "Getting employee data. Please wait...");
+                    "Getting Employee Data",
+                    "Getting Employee Data. Please wait...");
         }
         @Override
         protected void onProgressUpdate(String... text) {

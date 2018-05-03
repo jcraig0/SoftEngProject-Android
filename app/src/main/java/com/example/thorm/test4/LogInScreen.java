@@ -61,7 +61,10 @@ public class LogInScreen extends AppCompatActivity {
             }
             return resp;
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> MVP-Branch
         @Override
         protected void onPostExecute(String result) {
             // execution of result of Long time consuming operation
@@ -78,10 +81,20 @@ public class LogInScreen extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             progressDialog = ProgressDialog.show(LogInScreen.this,
+<<<<<<< HEAD
                     "Log-In Attempt",
+=======
+<<<<<<< HEAD
+                    "Authenticating",
+>>>>>>> parent of f4b020f... Finish merge
                     "Logging in. Please wait...");
         }
 
+=======
+                    "Login Attempt",
+                    "Logging in. Please wait...");
+        }
+>>>>>>> MVP-Branch
         @Override
         protected void onProgressUpdate(String... text) {
             Log.d("WaitTime" ,text[0]);
